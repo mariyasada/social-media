@@ -1,13 +1,54 @@
+@import url("https://iqra-ui.netlify.app/stylesheets/main.css");
+
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-      monospace;
-  }
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input[type="checkbox"] {
+  cursor: pointer;
+}
+.btn {
+  min-width: 15rem;
+  max-width: 20rem;
+}
+
+/* colors*/
+:root {
+  /* first color pallatee */
+  --primary-color: #487f63;
+  --secondary-color: #f0b86c;
+  --color-primary-black: #1a2e39;
+  --color-light: #fdf9f0;
+
+  /* second color palatte dark theme */
+  --primray-color: #6499e7;
+  --seondary-drak: #050d2c;
+  --WHITE-COLOR: #ffffff;
+  --LIGHT-PURPLE: #8e9cd3;
+
+  /* THIRD */
+  --SOYA-BEAN: #69604d;
+  --GREEN-WHITE: #eef0e7;
+  --JET-STREAM: #bfd6d3;
+  --GUIF-STREAM: #8bb9b9;
+  --PLANTATION: #284e57;
+  /* DARK MODE 4 */
+  --PRIMRAY-COLOR-DARK: #252c33;
+  --SECOND: #3a4750;
+  --THIRD: #f6c90e;
+  --FORTH: #eeeeee;
+}
