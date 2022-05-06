@@ -14,7 +14,6 @@ const AuthProvider=({children})=>{
     const navigate=useNavigate();
 
     const logInHandler= async(logInData)=>{
-        console.log(logInData);
         const {data,status}= await logInService(logInData);
         if(status===200)
         {
@@ -29,7 +28,6 @@ const AuthProvider=({children})=>{
     }
 
     const signUpHandler=async({signupData})=>{
-        console.log(signupData);
         const {data,status}= await signupService(signupData);
         if(status===201)
         {

@@ -43,10 +43,14 @@
   .home-page {
     flex-direction: column;
     justify-content: center;
+    background: linear-gradient(
+      -27deg,
+      var(--secondary-dark),
+      var(--background)
+    );
     gap: 0;
   }
   .image-container img {
-    /* height: 79vh; */
     width: 100%;
   }
   html {
