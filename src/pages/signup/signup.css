@@ -1,0 +1,76 @@
+.signup-page-container {
+  width: fit-content;
+  padding: 1rem;
+  margin: 2rem auto;
+  position: relative;
+  background-color: var(--white-color);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.background {
+  width: 100vw;
+  height: 100vh;
+}
+.label-input-container {
+  align-items: flex-start;
+  padding: 10px;
+  gap: 2px;
+}
+.label-for-login {
+  font-family: "Open-sans", sans-serif;
+  margin: 0 0 1px 7px;
+  font-size: 1.2rem;
+  color: var(--Light-purple);
+}
+.label-for-login::after {
+  content: "*";
+  color: red;
+  margin: 1px;
+}
+.input-signup {
+  border: 1px solid black;
+  width: 25vw;
+  height: 12px;
+}
+.input-signup:focus {
+  border: 1px solid black;
+}
+.show-hide-toggle-icon {
+  position: absolute;
+  left: 23rem;
+}
+.password-badge {
+  top: 24rem;
+}
+.confirm-password-badge {
+  top: 29.3rem;
+}
+.btn.login-btn {
+  background-color: var(--primary-color);
+  min-width: 18rem;
+  padding: 7px;
+  cursor: pointer;
+  color: var(--secondary-dark);
+}
+.new-user-link-container {
+  font-size: 1.2rem;
+  gap: 5px;
+  color: var(--secondary-dark);
+}
+.signup-link {
+  text-decoration: underline;
+  color: var(--plantation);
+  font-weight: bold;
+  cursor: pointer;
+}
+h2 {
+  color: var(--primary-color-dark);
+  font-family: "Nunito", sans-serif;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--light-stone);
+  opacity: 1; /* Firefox */
+}
+.error-msg {
+  color: red;
+}

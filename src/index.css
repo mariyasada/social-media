@@ -1,10 +1,12 @@
 @import url("https://iqra-ui.netlify.app/stylesheets/main.css");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Nunito:wght@300;500&family=Open+Sans:ital,wght@1,300&family=Oswald&family=Roboto:ital,wght@1,300&display=swap");
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
+  background-color: var(--background);
 }
 * {
   box-sizing: border-box;
@@ -18,6 +20,9 @@ a {
   align-items: center;
   justify-content: center;
 }
+.flex-direction-column {
+  flex-direction: column;
+}
 input[type="checkbox"] {
   cursor: pointer;
 }
@@ -25,30 +30,26 @@ input[type="checkbox"] {
   min-width: 15rem;
   max-width: 20rem;
 }
-
+html {
+  font-size: 90%;
+}
 /* colors*/
 :root {
-  /* first color pallatee */
-  --primary-color: #487f63;
-  --secondary-color: #f0b86c;
-  --color-primary-black: #1a2e39;
-  --color-light: #fdf9f0;
+  --color-black: #233138;
 
   /* second color palatte dark theme */
-  --primray-color: #6499e7;
-  --seondary-drak: #050d2c;
-  --WHITE-COLOR: #ffffff;
-  --LIGHT-PURPLE: #8e9cd3;
+  --primary-color: #6499e7;
+  --primary-color-dark: #295ca8;
+  --secondary-dark: #050d2c;
+  --white-color: #ffffff;
+  --Light-purple: #8e9cd3;
+  --background-color: #f7f7f8;
+  --background: #f4f4f5;
 
   /* THIRD */
-  --SOYA-BEAN: #69604d;
-  --GREEN-WHITE: #eef0e7;
-  --JET-STREAM: #bfd6d3;
-  --GUIF-STREAM: #8bb9b9;
-  --PLANTATION: #284e57;
-  /* DARK MODE 4 */
-  --PRIMRAY-COLOR-DARK: #252c33;
-  --SECOND: #3a4750;
-  --THIRD: #f6c90e;
-  --FORTH: #eeeeee;
+  --soya-bean: #69604d;
+  --green-white: #eef0e7;
+  --jet-stream: #bfd6d3;
+  --guif-stream: #8bb9b9;
+  --plantation: #284e57;
 }
