@@ -1,8 +1,8 @@
 import React from "react";
-import "../Home/Home.css";
+import "./landingpage.css";
 import { Link } from "react-router-dom";
 
-export const Home = () => {
+export const LandingPage = () => {
   return (
     <div className="home-page flex-center">
       <div className="image-container flex-center">
@@ -13,7 +13,7 @@ export const Home = () => {
           <p>Share your thoughts with people. </p>
         </span>
         <span>
-          <Link to="/login">
+          <Link to="/home">
             <button className="btn btn-homepage border-round">Join Now</button>
           </Link>
         </span>

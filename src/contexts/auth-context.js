@@ -20,7 +20,7 @@ const AuthProvider=({children})=>{
             localStorage.setItem("auth_token",JSON.stringify(data.encodedToken));
             setUser({isLoggedIn:true,authenticationToken:data.encodedToken});
              toast("Successfully loggedIn", { icon:  "✔️"  });
-             navigate("/");
+             navigate("/home");
         }
         else{
              toast("Something went wrong", { icon:  "❌"  });

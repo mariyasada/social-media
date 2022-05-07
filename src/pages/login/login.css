@@ -2,7 +2,7 @@
   width: 32vw;
 }
 .login-container-with-image {
-  margin: 0 auto;
+  margin: 3rem auto;
   height: 100vh;
   justify-content: space-around;
   padding: 2rem;
@@ -35,6 +35,7 @@
 }
 @media screen and (max-width: 900px) {
   .login-container-with-image {
+    margin-top: 6rem;
     flex-direction: column;
   }
   .login-image-container img {
