@@ -1,7 +1,7 @@
 .hamburger-menu-container {
   padding: 1rem;
   position: fixed;
-  z-index: 200;
+  z-index: 9;
   top: 8.7rem;
   left: 0;
   list-style: none;
