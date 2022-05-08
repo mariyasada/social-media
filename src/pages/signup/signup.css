@@ -15,10 +15,10 @@
   gap: 2px;
 }
 .label-for-login {
-  font-family: "Open-sans", sans-serif;
+  font-family: "Nunito", sans-serif;
   margin: 0 0 1px 7px;
   font-size: 1.2rem;
-  color: var(--Light-purple);
+  color: var(--primary-color);
 }
 .label-for-login::after {
   content: "*";
@@ -38,10 +38,10 @@
   left: 23rem;
 }
 .password-badge {
-  top: 24rem;
+  top: 24.5rem;
 }
 .confirm-password-badge {
-  top: 29.3rem;
+  top: 29.8rem;
 }
 .btn.login-btn {
   background-color: var(--primary-color);

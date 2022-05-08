@@ -30,7 +30,7 @@
 .login-badge {
   position: absolute;
   left: 22.7rem;
-  top: 13.7rem;
+  top: 13.9rem;
   cursor: pointer;
 }
 @media screen and (max-width: 900px) {
@@ -48,7 +48,7 @@
     margin-top: 10rem;
   }
   .login-badge {
-    top: 14.3rem;
+    top: 14.8rem;
   }
   .login-badge,
   .password-badge,
@@ -56,9 +56,9 @@
     left: 17rem;
   }
   .password-badge {
-    top: 25.3rem;
+    top: 26.6rem;
   }
   .confirm-password-badge {
-    top: 31rem;
+    top: 32.7rem;
   }
 }

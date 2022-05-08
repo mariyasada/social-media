@@ -63,7 +63,7 @@ export const Signup = () => {
           </div>
           <div className="label-input-container flex-center flex-direction-column ">
             <label htmlFor="username" className="label-for-login ">
-              username
+              Username
             </label>
             <input
               type="text"
