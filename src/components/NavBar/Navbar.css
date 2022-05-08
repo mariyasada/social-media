@@ -1,0 +1,66 @@
+.header-container {
+  background-color: var(--white-color);
+  justify-content: space-between;
+  box-shadow: 3px 3px 6px var(--light-stone);
+  position: fixed;
+  height: 6rem;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+}
+.humburgermenu-icon {
+  display: none;
+  font-size: 2rem;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.logo-container {
+  margin-left: 2rem;
+  height: 100%;
+}
+.search-input-container {
+  width: 25%;
+  padding: 5px;
+  border: 1px solid black;
+  justify-content: flex-start;
+  border-radius: 2px;
+}
+.search-icon {
+  font-size: 1rem;
+  margin-left: 1rem;
+  color: var(--light-stone);
+}
+.input-search {
+  margin-left: 2px;
+  border: none;
+  outline: none;
+  width: 70%;
+  background: transparent;
+}
+.btn.nav-btn {
+  background-color: var(--primary-color-dark);
+  min-width: 6rem;
+  font-size: 1.2rem;
+  margin-right: 6px;
+  padding: 7px;
+  cursor: pointer;
+}
+@media screen and (max-width: 900px) {
+  .header-container {
+    width: 100vw;
+  }
+  .humburgermenu-icon {
+    display: block;
+  }
+  .header-login-button-container {
+    display: none;
+  }
+  .search-input-container {
+    position: absolute;
+    width: 95vw;
+    top: 6.5rem;
+    z-index: 4;
+    background-color: var(--white-color);
+  }
+}

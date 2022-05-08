@@ -33,6 +33,7 @@ input[type="checkbox"] {
 html {
   font-size: 90%;
 }
+
 /* colors*/
 :root {
   --color-black: #233138;
@@ -43,7 +44,7 @@ html {
   --secondary-dark: #050d2c;
   --white-color: #ffffff;
   --Light-purple: #8e9cd3;
-  --background-color: #f7f7f8;
+  --background-color: #e4e4e7;
   --background: #f4f4f5;
 
   /* THIRD */
@@ -51,5 +52,6 @@ html {
   --green-white: #eef0e7;
   --jet-stream: #bfd6d3;
   --guif-stream: #8bb9b9;
+  --guif-stream-light: #b4cece;
   --plantation: #284e57;
 }

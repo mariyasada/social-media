@@ -2,7 +2,7 @@
   width: 32vw;
 }
 .login-container-with-image {
-  margin: 0 auto;
+  margin: 3rem auto;
   height: 100vh;
   justify-content: space-around;
   padding: 2rem;
@@ -30,11 +30,12 @@
 .login-badge {
   position: absolute;
   left: 22.7rem;
-  top: 13.7rem;
+  top: 13.9rem;
   cursor: pointer;
 }
 @media screen and (max-width: 900px) {
   .login-container-with-image {
+    margin-top: 6rem;
     flex-direction: column;
   }
   .login-image-container img {
@@ -47,7 +48,7 @@
     margin-top: 10rem;
   }
   .login-badge {
-    top: 14.3rem;
+    top: 14.8rem;
   }
   .login-badge,
   .password-badge,
@@ -55,9 +56,9 @@
     left: 17rem;
   }
   .password-badge {
-    top: 25.3rem;
+    top: 26.6rem;
   }
   .confirm-password-badge {
-    top: 31rem;
+    top: 32.7rem;
   }
 }

@@ -9,6 +9,7 @@
 div .toast-display {
   font-size: 1.1rem;
   width: 30rem;
+  font-family: "Nunito", sans-serif;
   background-color: var(--primary-color);
   color: var(--white-color);
   font-weight: bolder;
