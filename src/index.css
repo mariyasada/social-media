@@ -33,6 +33,25 @@ input[type="checkbox"] {
 html {
   font-size: 90%;
 }
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--light-stone);
+  font-family: "Nunito", sans-serif;
+  opacity: 1; /* Firefox */
+}
+li {
+  list-style: none;
+}
+.btn-of-post {
+  min-width: 7rem;
+  padding: 7px;
+  font-size: 1.2rem;
+  background-color: var(--primary-color-medium);
+}
+.avatar-xsm {
+  height: 2.3rem;
+  width: 2.3rem;
+}
 
 /* colors*/
 :root {
@@ -41,6 +60,7 @@ html {
   /* second color palatte dark theme */
   --primary-color: #6499e7;
   --primary-color-dark: #295ca8;
+  --primary-color-medium: #5e83c2;
   --secondary-dark: #050d2c;
   --white-color: #ffffff;
   --Light-purple: #8e9cd3;

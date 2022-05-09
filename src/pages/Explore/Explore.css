@@ -1,0 +1,34 @@
+.explore-page-container {
+  height: 100%;
+  margin: 7rem 0 0 10rem;
+  justify-content: flex-start;
+  gap: 3rem;
+}
+.userallpost-container {
+  gap: 12px;
+  margin: 2rem 0 0 6rem;
+  width: 100%;
+}
+.list-of-users-container {
+  align-self: flex-start;
+  padding: 1rem;
+  margin: 2rem 2rem 0 0;
+  width: 70%;
+}
+@media screen and (max-width: 900px) {
+  .explore-page-container {
+    flex-wrap: wrap;
+    margin: 7rem 0 0 -4rem;
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+  .list-of-users-container {
+    align-self: center;
+    width: 88vw;
+    margin-left: 8%;
+  }
+  .userallpost-container {
+    width: 80%;
+    margin-left: 6%;
+  }
+}

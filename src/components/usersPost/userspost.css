@@ -1,0 +1,110 @@
+.user-post-comment-container {
+  background-color: var(--white-color);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  height: auto;
+  padding: 1rem;
+  width: fit-content;
+  gap: 10px;
+}
+.user-post {
+  gap: 10px;
+}
+.header-with-dp-and-username {
+  justify-content: space-between;
+  width: inherit;
+}
+.profilepic-container {
+  align-self: flex-start;
+}
+.username-and-more-option {
+  width: 100%;
+  gap: 2px;
+}
+.username-and-icon {
+  width: inherit;
+  justify-content: space-between;
+  font-weight: bold;
+}
+.username-from-posts {
+  font-family: "Nunito", sans-serif;
+  margin-top: 3px;
+}
+.more-options {
+  align-self: flex-start;
+  color: var(--light-stone);
+}
+.users-post-details-container {
+  height: auto;
+  text-align: justify;
+}
+.user-post-icons-container {
+  width: 100%;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  color: var(--dark-stone);
+  cursor: pointer;
+}
+.comment-section-container {
+  height: auto;
+  width: 100%;
+}
+.avatar-and-input-container {
+  width: 100%;
+  justify-content: space-between;
+  border-top: 1px solid var(--light-stone);
+  padding-top: 2px;
+  gap: 2px;
+  align-items: center;
+}
+.input-and-sendbtn-container {
+  width: 91%;
+  border: 1px solid lightslategray;
+  padding: 3px;
+}
+.input-for-comment {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+.comment-rendered-section {
+  height: auto;
+  width: 100%;
+  gap: 3px;
+}
+.username-avatar-container {
+  width: 100%;
+  justify-content: space-between;
+  gap: 17px;
+  margin-top: 7px;
+}
+.username-and-comment {
+  font-family: "Nunito", sans-serif;
+  width: 100%;
+  align-items: flex-start;
+  background-color: transparent;
+}
+.avatar-container-from-comment {
+  align-self: flex-start;
+}
+.username {
+  margin: 0px 0 -6px 0;
+  font-weight: bold;
+}
+.reply-link {
+  color: var(--primary-color);
+  text-decoration: underline;
+  margin-top: -2px;
+}
+.avatar-and-input-container-for-reply {
+  width: 83%;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+}
+.background-of-icon {
+  background-color: var(--white-color);
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 8px;
+}

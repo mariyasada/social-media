@@ -39,12 +39,15 @@
   background: transparent;
 }
 .btn.nav-btn {
-  background-color: var(--primary-color-dark);
   min-width: 6rem;
   font-size: 1.2rem;
   margin-right: 6px;
   padding: 7px;
   cursor: pointer;
+  background: linear-gradient(
+    var(--primary-color-dark),
+    var(--primary-color-medium)
+  );
 }
 @media screen and (max-width: 900px) {
   .header-container {

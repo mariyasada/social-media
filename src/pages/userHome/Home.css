@@ -1,0 +1,61 @@
+.home-page-container {
+  height: 100%;
+  margin: 6rem 0 0 10rem;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+.home-feed-container {
+  height: auto;
+  align-self: flex-start;
+  padding: 1rem;
+  margin: 2rem 0 0 4rem;
+  width: fit-content;
+}
+.heading-of-post {
+  font-family: "Nunito", sans-serif;
+  color: var(--dark-stone);
+  align-self: flex-start;
+  font-size: 1.6rem;
+}
+.userpost-container {
+  gap: 12px;
+  width: 100%;
+}
+.user-list-container {
+  align-self: flex-start;
+  padding: 1rem;
+  margin: 2rem 2rem 0 0;
+  width: 100%;
+}
+@media screen and (max-width: 900px) {
+  .home-page-container {
+    flex-wrap: wrap;
+    margin: 7rem 0 0 -4rem;
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+  .textarea-of-createPost {
+    width: 74vw;
+  }
+  .user-list-container {
+    align-self: center;
+    width: 88vw;
+    margin-left: 8%;
+  }
+  .filter-item-container {
+    width: 93%;
+  }
+  .heading-of-post {
+    margin-left: 6px;
+  }
+  .userpost-container {
+    width: 93%;
+  }
+  .icons-container {
+    width: 40%;
+  }
+  .input-and-sendbtn-container {
+    width: 87%;
+    margin-left: 0;
+  }
+}

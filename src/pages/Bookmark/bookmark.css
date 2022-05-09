@@ -1,0 +1,25 @@
+.bookmark-page-container {
+  height: 100%;
+  margin: 6rem 0 0 10rem;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+.bookmark-list {
+  gap: 12px;
+  justify-content: center;
+  width: 50vw;
+  padding: 1rem;
+}
+.bookmark-heading {
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+@media screen and (max-width: 900px) {
+  .bookmark-page-container {
+    margin: 8rem 0 0 1rem;
+    gap: 0;
+  }
+  .bookmark-list {
+    width: 90vw;
+  }
+}

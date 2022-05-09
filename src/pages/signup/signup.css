@@ -65,11 +65,6 @@ h2 {
   color: var(--primary-color-dark);
   font-family: "Nunito", sans-serif;
 }
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: var(--light-stone);
-  opacity: 1; /* Firefox */
-}
 .error-msg {
   color: red;
 }
