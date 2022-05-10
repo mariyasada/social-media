@@ -1,0 +1,44 @@
+.userlist-container {
+  background-color: var(--white-color);
+  align-self: flex-start;
+  gap: 3px;
+  width: 90%;
+  min-width: 100%;
+}
+.title-and-option-container {
+  justify-content: space-between;
+  margin: 3px;
+  width: 90%;
+  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  color: var(--primary-color-dark);
+}
+.who-to-follow {
+  color: var(--secondary-dark);
+}
+.user-with-avatar-container {
+  margin-left: 3px;
+  width: 90%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.btn.btn-follow {
+  max-width: 5rem;
+  min-width: fit-content;
+  padding: 6px;
+  font-size: 1rem;
+  background: linear-gradient(
+    var(--primary-color-medium),
+    var(--primary-color)
+  );
+  font-weight: bold;
+}
+.image-with-username {
+  gap: 12px;
+  justify-items: flex-start;
+}
+.username-from-userlist {
+  align-self: flex-start;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+}

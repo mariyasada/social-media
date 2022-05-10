@@ -1,0 +1,18 @@
+.filter-item-container {
+  background-color: var(--white-color);
+  width: 100%;
+  margin-top: 1rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.filter-items {
+  justify-content: flex-start;
+  gap: 10px;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.2rem;
+}
+.filter-item {
+  width: fit-content;
+  border: 2px solid var(--primary-color);
+  padding: 8px;
+  border-radius: 50px;
+}
