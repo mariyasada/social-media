@@ -6,14 +6,14 @@
   left: 0;
   list-style: none;
   background-color: var(--white-color);
-  width: 25%;
+  width: 35%;
   transform: 0.3s ease-in-out;
   height: 100vh;
   display: none;
 }
 .hamburger-item {
   gap: 6px;
-  font-size: 1em;
+  font-size: 1.4rem;
   justify-content: flex-start;
   width: 100%;
 }
