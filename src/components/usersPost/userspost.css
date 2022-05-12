@@ -37,12 +37,14 @@
   height: auto;
   text-align: justify;
 }
+.details {
+  font-family: "Nunito", sans-serif;
+}
 .user-post-icons-container {
   width: 100%;
   justify-content: space-between;
   font-size: 1.1rem;
   color: var(--dark-stone);
-  cursor: pointer;
 }
 .comment-section-container {
   height: auto;
@@ -94,6 +96,7 @@
   color: var(--primary-color);
   text-decoration: underline;
   margin-top: -2px;
+  cursor: pointer;
 }
 .avatar-and-input-container-for-reply {
   width: 83%;
@@ -107,4 +110,5 @@
   width: 2rem;
   border-radius: 50%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 8px;
+  cursor: pointer;
 }

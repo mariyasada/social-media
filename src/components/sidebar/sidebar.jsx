@@ -30,7 +30,7 @@ export const Sidebar = () => {
         })}
         {isLoggedIn && (
           <NavLink
-            to="/"
+            to="/profile"
             className="sidebar-item-with-icon flex-center"
             style={getActivestylelink}
           >

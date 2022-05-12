@@ -1,6 +1,6 @@
 import {Routes,Route} from "react-router";
 import { Navbar, Sidebar } from "./components";
-import { Bookmark, Explore, Home, LandingPage, Login, Signup } from "./pages";
+import { Bookmark, Explore, Home, LandingPage, Login, Signup,PageNotFound, UserProfile } from "./pages";
 import { useLocation } from "react-router-dom";
 import { RequireAuth } from "./Router/RequireAuth";
 
@@ -18,6 +18,8 @@ export const AppRoutes = () => {
           <Route path="/home" element={<Home/>}/>
           <Route path="/explore" element={<Explore/>}/>
           <Route path="/bookmark" element={<RequireAuth children={<Bookmark/>}></RequireAuth>}/>
+          <Route path="/profile" element={<RequireAuth children={<UserProfile/>}></RequireAuth>}/>
+          <Route path="*" element={<PageNotFound/>}/>
       </Routes>
     </div>
   )

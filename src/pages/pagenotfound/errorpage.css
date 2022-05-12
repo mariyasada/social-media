@@ -1,0 +1,41 @@
+.wrapper {
+  width: 80vw;
+  margin: 8rem 0 0 12rem;
+}
+.error-image-container {
+  height: 50vh;
+  width: 30vw;
+  object-fit: contain;
+}
+.errorpage-message {
+  flex-direction: column;
+  font-size: 1.7rem;
+}
+.error-status {
+  color: var(--dark-blue);
+  font-size: 4rem;
+  margin: 4rem 0 0 3rem;
+}
+.message-for-user {
+  width: 30rem;
+}
+.link-to-homepage {
+  color: var(--dark-teal);
+  cursor: pointer;
+}
+@media screen and (max-width: 900px) {
+  .wrapper {
+    flex-direction: column;
+    margin-left: 1rem;
+    width: 90vw;
+  }
+  .message-for-user {
+    width: 20rem;
+  }
+  .error-status {
+    margin: 0;
+  }
+  .errorpage-message {
+    font-size: 1.5rem;
+  }
+}

@@ -31,11 +31,13 @@ export const UsersPost = () => {
             </span>
           </div>
           <div className="users-post-details-container">
-            <p className="details">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Inventore, illum culpa quod perferendis neque maxime harum
-              deleniti quaerat labore voluptates. Aut sit molestias a excepturi
-              minus praesentium, adipisci dolorem distinctio.
+            <div className="details">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Inventore, illum culpa quod perferendis neque maxime harum
+                deleniti quaerat labore voluptates. Aut sit molestias a
+                excepturi minus praesentium, adipisci dolorem distinctio.
+              </p>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Inventore, illum culpa quod perferendis neque maxime harum
@@ -46,7 +48,7 @@ export const UsersPost = () => {
                 labore voluptates. Aut sit molestias a excepturi minus
                 praesentium, adipisci dolorem distinctio.
               </p>
-            </p>
+            </div>
           </div>
           <div className="user-post-icons-container flex-center">
             <span className="background-of-icon flex-center">
@@ -109,6 +111,21 @@ export const UsersPost = () => {
                 >
                   Reply
                 </p>
+                {/*  reply comments  */}
+                <div className="username-avatar-container flex-center">
+                  <div className="avatar-container-from-comment">
+                    <img
+                      className="avatar avatar-xsm"
+                      src="https://iqra-ui.netlify.app/images/blank.png"
+                      alt="user profile"
+                    />
+                  </div>
+                  <div className="username-and-comment flex-center flex-direction-column">
+                    <p className="username">Mariyasada</p>
+                    <p className="comment-of-user">hello how are you</p>
+                  </div>
+                </div>
+                {/*  reply comments over here */}
                 {isVisible && (
                   <div className="avatar-and-input-container-for-reply flex-center">
                     <div className="avatar-container">

@@ -1,0 +1,74 @@
+.profile-of-user-container {
+  height: 100vh;
+  margin: 7rem 0 0 12rem;
+  justify-content: flex-start;
+  gap: 20px;
+}
+.username-with-avatar-container {
+  gap: 10px;
+  margin-top: 2rem;
+  width: 60vw;
+  padding: 1rem;
+}
+.avatar-container {
+  margin-top: 1rem;
+}
+.btn.btn-edit {
+  min-width: 10rem;
+  padding: 7px;
+  font-size: 1.2rem;
+  background-color: transparent;
+  color: var(--primary-color-dark);
+  border: 2px solid var(--primary-color-dark);
+  cursor: pointer;
+  font-weight: bold;
+}
+.color-black {
+  color: var(--primary-color);
+}
+.details-container .details {
+  width: 50vw;
+  font-family: "Nunito", sans-serif;
+}
+.portfolio-url {
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Lucida Sans", Geneva, Verdana, sans-serif;
+}
+.followers-container {
+  background-color: var(--white-color);
+  width: 20vw;
+  gap: 3px;
+  padding: 8px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  font-family: "Lucida Sans", Geneva, Verdana, sans-serif;
+}
+.follower {
+  width: 100%;
+  font-weight: bold;
+}
+.count {
+  margin-bottom: -3px;
+}
+.user-post-container {
+  gap: 20px;
+  width: 50vw;
+}
+@media screen and (max-width: 900px) {
+  .profile-of-user-container {
+    margin-left: 2rem;
+    width: 80vw;
+  }
+  .username-with-avatar-container {
+    width: 100%;
+  }
+  .details-container .details {
+    width: 100%;
+  }
+  .followers-container {
+    width: 80%;
+  }
+  .user-post-container {
+    width: 100%;
+  }
+}

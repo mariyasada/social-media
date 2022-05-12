@@ -1,0 +1,84 @@
+.modal-outer-container {
+  background-color: rgba(226, 223, 223, 0.5);
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  z-index: 30;
+}
+.modal-for-edit-details {
+  height: auto;
+  width: 30vw;
+  background-color: white;
+  padding: 1rem;
+  position: fixed;
+  top: 10%;
+  left: 40%;
+  z-index: 10;
+}
+.title-and-close-icon {
+  justify-content: space-between;
+  font-size: 1.7rem;
+  font-family: "Nunito", sans-serif;
+  width: 100%;
+}
+.title-of-modal {
+  margin: 0 auto;
+  font-weight: 400;
+}
+.input-for-edit {
+  display: none;
+}
+.profile-picture-and-edit-btn-container,
+.bio-with-textarea-container,
+.protfolio-with-textarea-container {
+  width: 100%;
+  gap: 3px;
+}
+.edit-option {
+  text-decoration: underline;
+  color: var(--dark-teal);
+}
+.close-icon {
+  cursor: pointer;
+}
+.edit-profile-header {
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.1rem;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+}
+.bio-header,
+.portfolio-header {
+  align-self: flex-start;
+  font-family: "Nunito", sans-serif;
+}
+.textarea-of-bio {
+  border: 1px solid var(--light-stone);
+  resize: none;
+  height: auto;
+  padding: 10px;
+  width: 100%;
+}
+.input-of-portfolio {
+  width: 100%;
+  border: 1px solid var(--light-stone);
+  padding: 4px;
+}
+.btn.btn-secondary {
+  min-width: 8rem;
+  padding: 5px;
+  margin-top: 14px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+@media screen and (max-width: 900px) {
+  .modal-for-edit-details {
+    top: 20%;
+    left: 15%;
+    width: 60vw;
+  }
+  .title-of-modal {
+    margin-left: 2rem;
+  }
+}

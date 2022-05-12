@@ -33,7 +33,7 @@ export const Humburger = () => {
         })}
         {isLoggedIn && (
           <NavLink
-            to="/"
+            to="/profile"
             className="hamburger-menu-item flex-center flex-direction-column"
             style={getActiveStyle}
           >
