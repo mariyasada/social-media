@@ -20,9 +20,19 @@ export const CreatePost = () => {
         />
         <div className="icons-and-post-btn-container flex-center">
           <div className="icons-container flex-center">
-            <GrImage className="icons" />
+            <label className="label-for-icons flex-center">
+              <input
+                type="file"
+                accept="image/png, image/jpg, image/gif, image/jpeg"
+                className="input-for-image"
+              />
+              <GrImage className="icons" />
+              <AiOutlineFileGif className="icons" />
+              <BsEmojiSmile className="icons" />
+            </label>
+            {/* <GrImage className="icons" />
             <AiOutlineFileGif className="icons" />
-            <BsEmojiSmile className="icons" />
+            <BsEmojiSmile className="icons" /> */}
           </div>
           <span className="btn-container">
             <button className="btn btn-of-post border-round">Post</button>

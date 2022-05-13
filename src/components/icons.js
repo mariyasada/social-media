@@ -1,4 +1,4 @@
-export { FaUserAlt ,FaEye,FaEyeSlash,FaHome,FaRegBookmark,FaUserCircle,FaRegHeart,FaRegComment,FaTrash,FaEdit} from "react-icons/fa";
+export { FaUserAlt ,FaEye,FaEyeSlash,FaHome,FaRegBookmark,FaUserCircle,FaRegHeart,FaRegComment,FaTrash,FaEdit,FaTimes} from "react-icons/fa";
 export {MdMenu,MdExplore,MdNotificationsNone} from "react-icons/md";
 export {FiLogOut,FiShare2} from "react-icons/fi";
 export {BsSearch,BsEmojiSmile,BsThreeDots} from "react-icons/bs";

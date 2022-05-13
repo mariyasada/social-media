@@ -27,11 +27,11 @@
   min-width: fit-content;
   padding: 6px;
   font-size: 1rem;
-  background: linear-gradient(
-    var(--primary-color-medium),
-    var(--primary-color)
-  );
+  background-color: transparent;
+  border: 2px solid var(--primary-color-dark);
   font-weight: bold;
+  cursor: pointer;
+  color: var(--primary-color-medium);
 }
 .image-with-username {
   gap: 12px;

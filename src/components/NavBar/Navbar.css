@@ -1,7 +1,7 @@
 .header-container {
   background-color: var(--white-color);
   justify-content: space-between;
-  box-shadow: 3px 3px 6px var(--light-stone);
+  border-bottom: 1px solid var(--light-stone);
   position: fixed;
   height: 6rem;
   top: 0;
