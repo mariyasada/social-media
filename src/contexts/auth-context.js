@@ -4,10 +4,14 @@ import { logInService,signupService,signOutService } from "../Services";
 import toast from "react-hot-toast";
 
 const authContext=createContext();
-const token=JSON.parse(localStorage.getItem("auth_token"));
+const token=localStorage.getItem("auth_token");
+const userdata=JSON.parse(localStorage.getItem("user_data"));
+
 const initialAuthState={
     isLoggedIn:token?true:false,
     authenticationToken:token,
+    userData:userdata
+    
 }
 const AuthProvider=({children})=>{
     const [user,setUser]=useState(initialAuthState);
@@ -15,10 +19,12 @@ const AuthProvider=({children})=>{
 
     const logInHandler= async(logInData)=>{
         const {data,status}= await logInService(logInData);
+        console.log(data);
         if(status===200)
         {
-            localStorage.setItem("auth_token",JSON.stringify(data.encodedToken));
-            setUser({isLoggedIn:true,authenticationToken:data.encodedToken});
+            localStorage.setItem("auth_token",data.encodedToken);
+            localStorage.setItem("user_data",JSON.stringify(data.foundUser));
+            setUser({isLoggedIn:true,authenticationToken:data.encodedToken,userData:data.foundUser});
              toast("Successfully loggedIn", { icon:  "✔️"  });
              navigate("/home");
         }
@@ -31,7 +37,7 @@ const AuthProvider=({children})=>{
         const {data,status}= await signupService(signupData);
         if(status===201)
         {
-            localStorage.setItem("auth_token",JSON.stringify(data.encodedToken))
+            localStorage.setItem("auth_token",data.encodedToken);
             toast("Successfully Registered", { icon:  "✔️"  });
             navigate("/login");
         }
@@ -42,7 +48,7 @@ const AuthProvider=({children})=>{
 
     const signOutHandler=()=>{
         signOutService();
-        setUser({loginStatus:false})   
+        setUser({loginStatus:false}) 
         toast("Logged out successfully", { icon:  "✔️"  }); 
         navigate("/");  
     }

@@ -1,8 +1,11 @@
 import React from "react";
 import { CreatePost, FilterBar, UserList, UsersPost } from "../../components";
+import { usePosts } from "../../contexts";
 import "../userHome/Home.css";
 
 export const Home = () => {
+  const { state } = usePosts();
+  const { postsList, userList } = state;
   return (
     <div className="home-page-container flex-center">
       {/* create post and latest post conatiner */}
@@ -11,12 +14,9 @@ export const Home = () => {
         <FilterBar />
         <h1 className="heading-of-post">Latest Posts</h1>
         <div className="userpost-container flex-center flex-direction-column">
-          <UsersPost />
-          <UsersPost />
-          <UsersPost />
-          <UsersPost />
-          <UsersPost />
-          <UsersPost />
+          {postsList.map((userpost) => {
+            return <UsersPost Post={userpost} key={userpost._id} />;
+          })}
         </div>
       </div>
       <div className="user-list-container">

@@ -58,4 +58,7 @@
     width: 87%;
     margin-left: 0;
   }
+  .users-post-details-container {
+    min-width: 35ch;
+  }
 }

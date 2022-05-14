@@ -1,8 +1,19 @@
 import { useState } from "react";
 import { Modal, UsersPost } from "../../components";
+import { useAuth, usePosts } from "../../contexts";
 import "../userProfile/userprofile.css";
 
 export const UserProfile = () => {
+  const {
+    user: { userData },
+  } = useAuth();
+
+  const {
+    state: { postsList },
+  } = usePosts();
+  const loggedUsersPost = postsList.filter(
+    (item) => item.username === userData.username
+  );
   const [isShow, setShow] = useState(false);
   return (
     <div className="profile-of-user-container flex-center flex-direction-column">
@@ -10,11 +21,15 @@ export const UserProfile = () => {
         <div className="avatar-container">
           <img
             className="avatar avatar-md"
-            src="https://picsum.photos/200"
+            src={
+              userData.profile
+                ? userData.profile
+                : "https://iqra-ui.netlify.app/images/blank.png"
+            }
             alt="user-profile"
           />
         </div>
-        <h2 className="username color-black">MariyaSada</h2>
+        <h2 className="username color-black">{userData.username}</h2>
         <div className="edit-btn-container">
           <button
             className="btn btn-edit border-round"
@@ -24,13 +39,8 @@ export const UserProfile = () => {
           </button>
         </div>
         <div className="details-container flex-center flex-direction-column">
-          <p className="details">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil
-            illum neque ex accusantium! Perferendis excepturi laudantium nulla
-            officiis. Consequuntur pariatur aliquid nisi doloremque ipsa,
-            explicabo id ex assumenda! Molestias, cumque!
-          </p>
-          <span className="portfolio-url">mariyasada.netlify.app</span>
+          <p className="details">{userData.bio}</p>
+          <span className="portfolio-url">{userData.website}</span>
         </div>
         <div className="followers-container flex-center border-round">
           <span className="follower flex-center flex-direction-column">
@@ -44,8 +54,9 @@ export const UserProfile = () => {
         </div>
       </div>
       <div className="user-post-container flex-center flex-direction-column">
-        <UsersPost />
-        <UsersPost />
+        {loggedUsersPost.map((userpost) => {
+          return <UsersPost Post={userpost} key={userpost._id} />;
+        })}
       </div>
       {isShow && <Modal setShow={setShow} />}
     </div>

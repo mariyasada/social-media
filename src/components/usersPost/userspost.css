@@ -32,10 +32,13 @@
 .more-options {
   align-self: flex-start;
   color: var(--light-stone);
+  cursor: pointer;
 }
 .users-post-details-container {
   height: auto;
   text-align: justify;
+  width: 100%;
+  min-width: 70ch;
 }
 .details {
   font-family: "Nunito", sans-serif;

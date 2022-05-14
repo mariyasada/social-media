@@ -71,6 +71,11 @@
   margin-top: 14px;
   font-size: 1.3rem;
   cursor: pointer;
+  background: linear-gradient(
+    45deg,
+    var(--light-purple),
+    var(--primary-color-dark)
+  );
 }
 @media screen and (max-width: 900px) {
   .modal-for-edit-details {

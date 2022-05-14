@@ -1,14 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { GrImage, AiOutlineFileGif, BsEmojiSmile } from "../icons";
 import "../CreatePost/createpost.css";
+import { useAuth, usePosts } from "../../contexts";
+import toast from "react-hot-toast";
 
 export const CreatePost = () => {
+  const {
+    user: { userData },
+  } = useAuth();
+  const {
+    postData,
+    setPostData,
+    createPostHandler,
+    editPostHandler,
+    isEditing,
+    setIsEditing,
+  } = usePosts();
+
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setPostData((prevData) => ({ ...prevData, [name]: value }));
+  };
+  const createPostclickHandler = () => {
+    if (postData === "") {
+      toast("please fill the form field");
+    } else if (postData && isEditing) {
+      editPostHandler(postData);
+    } else {
+      createPostHandler(postData);
+    }
+    setPostData({ content: " " });
+  };
+
   return (
     <div className="create-post-container flex-center border-round">
       <div className="avatar-image-container">
         <img
           className="avatar avatar-xsm"
-          src="https://picsum.photos/200"
+          src={
+            userData.profile
+              ? userData.profile
+              : "https://iqra-ui.netlify.app/images/blank.png"
+          }
           alt="user profile"
         />
       </div>
@@ -17,6 +50,11 @@ export const CreatePost = () => {
           cols="50"
           className="textarea-of-createPost"
           placeholder="Write something interesting... "
+          required
+          name="content"
+          id="content"
+          value={postData.content}
+          onChange={(e) => changeHandler(e)}
         />
         <div className="icons-and-post-btn-container flex-center">
           <div className="icons-container flex-center">
@@ -30,12 +68,14 @@ export const CreatePost = () => {
               <AiOutlineFileGif className="icons" />
               <BsEmojiSmile className="icons" />
             </label>
-            {/* <GrImage className="icons" />
-            <AiOutlineFileGif className="icons" />
-            <BsEmojiSmile className="icons" /> */}
           </div>
           <span className="btn-container">
-            <button className="btn btn-of-post border-round">Post</button>
+            <button
+              className="btn btn-of-post border-round"
+              onClick={createPostclickHandler}
+            >
+              {isEditing ? "Update Post" : "Post"}
+            </button>
           </span>
         </div>
       </div>
