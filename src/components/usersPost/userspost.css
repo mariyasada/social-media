@@ -38,7 +38,7 @@
   height: auto;
   text-align: justify;
   width: 100%;
-  min-width: 70ch;
+  min-width: 73ch;
 }
 .details {
   font-family: "Nunito", sans-serif;
@@ -114,4 +114,17 @@
   border-radius: 50%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 8px;
   cursor: pointer;
+}
+.liked-by-container {
+  width: 100%;
+  justify-content: flex-start;
+}
+.color-red {
+  color: red;
+}
+.userspost-likeCount {
+  width: 100%;
+  font-family: "Nunito", sans-serif;
+  justify-content: flex-start;
+  color: blue;
 }

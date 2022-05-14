@@ -26,6 +26,8 @@ export const CreatePost = () => {
       toast("please fill the form field");
     } else if (postData && isEditing) {
       editPostHandler(postData);
+      setIsEditing(!isEditing);
+      toast("suceessfully post updated", { icon: "✔" });
     } else {
       createPostHandler(postData);
     }
