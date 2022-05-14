@@ -6,7 +6,6 @@ export const editPostService= async(postData,authenticationToken)=>{
             authorization: authenticationToken
             
         }})
-        console.log(data,status);
         return {data,status}
     }
     catch(err)

@@ -14,9 +14,11 @@ export const Home = () => {
         <FilterBar />
         <h1 className="heading-of-post">Latest Posts</h1>
         <div className="userpost-container flex-center flex-direction-column">
-          {postsList.map((userpost) => {
-            return <UsersPost Post={userpost} key={userpost._id} />;
-          })}
+          {postsList
+            .map((userpost) => {
+              return <UsersPost Post={userpost} key={userpost._id} />;
+            })
+            .reverse()}
         </div>
       </div>
       <div className="user-list-container">
