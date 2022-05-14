@@ -9,9 +9,11 @@ import {
   FiShare2,
   IoSend,
   BsThreeDots,
+  FaBookmark,
+  FaHeart,
 } from "../icons";
 import { CommentSection } from "../commentsection/comment";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth, usePosts } from "../../contexts";
 
 export const UsersPost = ({ Post }) => {
@@ -19,21 +21,23 @@ export const UsersPost = ({ Post }) => {
     user: { userData },
   } = useAuth();
   const {
-    state: { postsList },
+    state: { postsList, bookmarkList },
     deletePostHandler,
-    postData,
     setPostData,
-    isEditing,
     setIsEditing,
+    addPostToBookmark,
+    removePostFromBookmark,
+    likedPostHandler,
+    dislikePostHandler,
   } = usePosts();
   const { pathname } = useLocation();
   const [isShow, setShow] = useState(false);
-  const navigate = useNavigate();
 
   const seteditData = (post) => {
     setIsEditing(true);
     setPostData(post);
   };
+  console.log(postsList, "liked count from post");
   return (
     <div className="user-post-comment-container flex-center flex-direction-column border-round">
       <div className="user-post flex-center border-round">
@@ -77,9 +81,30 @@ export const UsersPost = ({ Post }) => {
               <p>{Post.content}</p>
             </div>
           </div>
+          {Post.likes.likeCount === 0 ? (
+            ""
+          ) : (
+            <div className="userspost-likeCount flex-center">
+              <span> {Post.likes.likeCount} Likes</span>
+            </div>
+          )}
           <div className="user-post-icons-container flex-center">
             <span className="background-of-icon flex-center">
-              <FaRegHeart className="action-icons" title="Like" />
+              {Post.likes.likedBy.some(
+                (item) => item.username === userData.username
+              ) ? (
+                <FaHeart
+                  className="action-icons color-red"
+                  title="dislike"
+                  onClick={() => dislikePostHandler(Post)}
+                />
+              ) : (
+                <FaRegHeart
+                  className="action-icons"
+                  title="Like"
+                  onClick={() => likedPostHandler(Post)}
+                />
+              )}
             </span>
             <span className="background-of-icon flex-center">
               <FaRegComment
@@ -92,21 +117,43 @@ export const UsersPost = ({ Post }) => {
               <FiShare2 className="action-icons" title="Share" />
             </span>
             <span className="background-of-icon flex-center">
-              <FaRegBookmark className="action-icons" title="BookMark" />
-            </span>
-            <span className="background-of-icon flex-center">
-              <Link to="/home">
-                <FaEdit
+              {bookmarkList.some((item) => item._id === Post._id) ? (
+                <FaBookmark
                   className="action-icons"
-                  title="Edit"
-                  onClick={
-                    Post.username === userData.username
-                      ? () => seteditData(Post)
-                      : null
-                  }
+                  title="BookMark"
+                  onClick={() => removePostFromBookmark(Post)}
                 />
-              </Link>
+              ) : (
+                <FaRegBookmark
+                  className="action-icons"
+                  title="BookMark"
+                  onClick={() => addPostToBookmark(Post)}
+                />
+              )}
             </span>
+            {Post.username === userData.username && (
+              <span className="background-of-icon flex-center">
+                <Link to="/home">
+                  <FaEdit
+                    className="action-icons"
+                    title="Edit"
+                    onClick={
+                      Post.username === userData.username
+                        ? () => seteditData(Post)
+                        : null
+                    }
+                  />
+                </Link>
+              </span>
+            )}
+          </div>
+          {/* liked by username */}
+          <div className="liked-by-container flex-center">
+            <p className="likedby-username">
+              {Post.likes.likeCount === 0
+                ? " "
+                : `liked by ${userData.username}`}
+            </p>
           </div>
         </div>
         <hr />

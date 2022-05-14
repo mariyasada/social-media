@@ -5,3 +5,8 @@ export {createPostService} from "./createpostservices/createpostservice";
 export {getpostofParticularuser} from "./createpostservices/getPostforperticularuser";
 export {deletePostService} from "./createpostservices/deletepostservice";
 export {editPostService} from "./createpostservices/editpostservice";
+export {getallbookmarks} from "./bookmarkservice/getallbookmarks";
+export {addTobookmarksservice} from "./bookmarkservice/addtobookmark";
+export {removeFrombookmarkservice} from "./bookmarkservice/removefrombookmark";
+export {likedPostService} from "./likedPost/likedPostservice";
+export {dislikedPostService} from "./likedPost/dislikepostservice";
