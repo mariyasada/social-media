@@ -6,3 +6,4 @@ export {FilterBar} from "./FilterBar/FilterBar";
 export {UsersPost} from "./usersPost/UsersPost";
 export {UserList} from "./ListOfuser/userList";
 export {Modal} from "./Modal/Modal";
+export {CommentSection} from "./commentsection/comment"
