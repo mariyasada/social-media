@@ -6,8 +6,9 @@ export const logInService=async(logInData)=>{
              
            return {data,status}; 
         }
-        catch{
+        catch(err){
             console.error("LogIn failed");
+            return Promise.reject(err);
         }
     
 }

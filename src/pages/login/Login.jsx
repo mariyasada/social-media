@@ -5,11 +5,15 @@ import { Link } from "react-router-dom";
 import "../signup/signup.css";
 import { guestData, initialLogInData } from "../../constants/auth-Constants";
 import { useAuth } from "../../contexts/auth-context";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../redux/auth/authslice";
 
 export const Login = () => {
   const [isShow, setShow] = useState(true);
   const [logInData, setLogInData] = useState(initialLogInData);
   const { logInHandler } = useAuth();
+
+  // const dispatch = useDispatch();
 
   const logInChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -66,7 +70,9 @@ export const Login = () => {
             <button
               className="btn login-btn border-round"
               onClick={(e) => {
-                e.preventDefault(), logInHandler(logInData);
+                e.preventDefault();
+                logInHandler(logInData);
+                // dispatch(logIn(logInData));
               }}
             >
               Login

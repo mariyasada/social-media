@@ -52,7 +52,7 @@
     width: 93%;
   }
   .icons-container {
-    width: 40%;
+    width: 35%;
   }
   .input-and-sendbtn-container {
     width: 87%;
@@ -60,5 +60,10 @@
   }
   .users-post-details-container {
     min-width: 45ch;
+  }
+  .btn-of-post {
+    max-width: 3rem;
+    padding: 4px;
+    font-size: 1.1rem;
   }
 }

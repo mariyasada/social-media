@@ -6,7 +6,7 @@ import { createPostService, getpostofParticularuser,deletePostService,editPostSe
 import { useAuth } from "./auth-context";
 import { combineReducer } from "./reducer/postreducer";
 import { reducerTypes } from "./reducer/reducertypes";
-const {LOAD_POSTS,LOAD_USERDATA,ADD_POST,USERS_POSTLIST,DELETE_POST,EDIT_POST,LOAD_BOOKMARKS,ADD_TO_BOOKMARK,REMOVE_FROM_BOOKMARK,LIKED_POST,DISLIKED_POST}=reducerTypes;
+const {LOAD_POSTS,LOAD_USERDATA,ADD_POST,USERS_POSTLIST,DELETE_POST,EDIT_POST,LOAD_BOOKMARKS,ADD_TO_BOOKMARK,REMOVE_FROM_BOOKMARK,LIKED_POST,DISLIKED_POST,LIKE_POST_FROM_BOOKMARK}=reducerTypes;
 
 const PostContext=createContext();
 const PostProvider=({children})=>{
@@ -75,6 +75,7 @@ const PostProvider=({children})=>{
 
     const addPostToBookmark =async(post)=>{
         const {data,status}= await addTobookmarksservice(post,authenticationToken);
+        console.log(data,"hello bookmark");
         if(status===200 || status===201)
         {
             dispatch({type:ADD_TO_BOOKMARK,payload:data.bookmarks})
@@ -99,9 +100,11 @@ const PostProvider=({children})=>{
 
     const likedPostHandler=async(post)=>{
         const {data,status}= await likedPostService(post,authenticationToken);
+         console.log(data,"hello hi");
         if(status===200 || status===201)
         {
             dispatch({type:LIKED_POST,payload:data.posts})
+            // dispatch({type:LIKE_POST_FROM_BOOKMARK,payload:data.posts})
             toast("post liked",{icon:"✔👍"})
         }
         else{
