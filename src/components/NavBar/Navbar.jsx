@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/index";
 import { Humburger } from "../Humburger/Humburger";
@@ -10,8 +11,10 @@ export const Navbar = () => {
     user: { isLoggedIn },
     signOutHandler,
   } = useAuth();
+  // const { isLoggedIn, userData } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  // console.log(userData, "helll");
   return (
     <nav className="header-container flex-center">
       <div className="menu-icon-and-logo-conatiner flex-center">

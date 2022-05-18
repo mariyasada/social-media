@@ -37,7 +37,7 @@ export const UsersPost = ({ Post }) => {
     setIsEditing(true);
     setPostData(post);
   };
-  console.log(postsList, "liked count from post");
+  // console.log(postsList, "liked count from post");
   return (
     <div className="user-post-comment-container flex-center flex-direction-column border-round">
       <div className="user-post flex-center border-round">
@@ -81,6 +81,7 @@ export const UsersPost = ({ Post }) => {
               <p>{Post.content}</p>
             </div>
           </div>
+          {/* {console.log(Post, "bookmark")} */}
           {Post.likes.likeCount === 0 ? (
             ""
           ) : (

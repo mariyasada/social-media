@@ -34,6 +34,11 @@ export const CreatePost = () => {
     setPostData({ content: " " });
   };
 
+  const cancelupdatePostHandler = () => {
+    setIsEditing(false);
+    setPostData({ content: " " });
+  };
+
   return (
     <div className="create-post-container flex-center border-round">
       <div className="avatar-image-container">
@@ -71,7 +76,15 @@ export const CreatePost = () => {
               <BsEmojiSmile className="icons" />
             </label>
           </div>
-          <span className="btn-container">
+          <span className="btn-container flex-center">
+            {isEditing && (
+              <button
+                className="btn btn-of-post border-round"
+                onClick={cancelupdatePostHandler}
+              >
+                Cancel
+              </button>
+            )}
             <button
               className="btn btn-of-post border-round"
               onClick={createPostclickHandler}

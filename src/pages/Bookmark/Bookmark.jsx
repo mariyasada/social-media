@@ -5,8 +5,15 @@ import "../Bookmark/bookmark.css";
 
 export const Bookmark = () => {
   const {
-    state: { bookmarkList },
+    state: { bookmarkList, postsList },
   } = usePosts();
+
+  // const bookmarkedPost = postsList.map((post) =>
+  //   bookmarkList.map((item) => item._id === post._id)
+  // );
+
+  // console.log(bookmarkedPost, "bookmarked cotext");
+
   return (
     <div className="bookmark-page-container flex-center flex-direction-column">
       <h2 className="bookmark-heading">Your Bookmarks</h2>

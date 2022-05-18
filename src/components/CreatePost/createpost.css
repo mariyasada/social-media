@@ -43,3 +43,6 @@
 .input-for-image {
   display: none;
 }
+.btn-container {
+  gap: 5px;
+}
