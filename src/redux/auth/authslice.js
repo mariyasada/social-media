@@ -132,3 +132,4 @@ const AuthSlice = createSlice({
 });
 export default AuthSlice.reducer;
 export const {setUser} =  AuthSlice.actions;
+

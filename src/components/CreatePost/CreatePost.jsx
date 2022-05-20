@@ -50,7 +50,6 @@ export const CreatePost = ({
     setIsEditing(false);
     setPostData({ content: " " });
   };
-
   const onEmojiClick = (e, emojiObject) => {
     e.preventDefault();
     setPostData((prevData) => ({
@@ -101,7 +100,6 @@ export const CreatePost = ({
                 Cancel
               </button>
             )}
-
             <button
               className="btn btn-of-post border-round"
               onClick={createPostclickHandler}
