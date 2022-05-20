@@ -6,15 +6,15 @@ export const RequireAuth = ({children}) => {
     
    const {isUserLoggedIn,user}=useSelector(state=>state.auth);
     const location=useLocation();
-    console.log(user);
-    if(user)
-    {
+    // console.log(user);
+    // if(user)
+    // {
 
     return (isUserLoggedIn ?children:<Navigate to="/login" state={{from:location}} replace/>)
-    }
-    else{
-        console.log("could not complete the request");
-    }
+    // }
+    // else{
+    //     console.log("could not complete the request");
+    // }
 }
 
 

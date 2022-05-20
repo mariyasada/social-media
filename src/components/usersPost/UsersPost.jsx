@@ -23,9 +23,6 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
   const [isShow, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  // console.log(Post);
-  // console.log(setIsEditing);
-
   const seteditData = (Post) => {
     setIsEditing(true);
     setPostData(Post);
@@ -89,7 +86,7 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
               <FaRegBookmark className="action-icons" title="BookMark" />
             </span>
 
-            {user.username === Post.user.username && (
+            {user.username === Post.user.username && pathname !== "/profile" && (
               <span className="background-of-icon flex-center">
                 <Link to="/home">
                   <FaEdit

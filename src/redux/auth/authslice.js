@@ -35,11 +35,10 @@ export const logIn=createAsyncThunk(
   async ({  email, password}) => {
     try {
       const auth = getAuth(app);
-      const {user}= await setPersistence(auth, browserLocalPersistence).then(()=>{
-        return signInWithEmailAndPassword(auth, email, password);
-      })
-      // const {user} = await signInWithEmailAndPassword(auth, email, password);
-      // localStorage.setItem("user_data",JSON.stringify(user));
+      // const {user}= await setPersistence(auth, browserLocalPersistence).then(()=>{
+      //   return signInWithEmailAndPassword(auth, email, password);
+      // })
+      const {user} = await signInWithEmailAndPassword(auth, email, password);
       const userDoc=await getDoc(doc(db, "users",user.uid));
       return (userDoc.data());
     } catch (error) {

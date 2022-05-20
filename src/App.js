@@ -15,16 +15,17 @@ function App() {
   const auth=getAuth(app);
   const dispatch=useDispatch();
   const navigate=useNavigate();
-  useEffect(()=>{
-     const unsubscribe = onAuthStateChanged(auth,async(user)=>{
-      const userRef=await getDoc(doc(db,"users",user.uid))
-      const userData=userRef.data();
-      dispatch(setUser(userData));
-       console.log(userData);
-       navigate("/home")
-     })
-     return ()=>unsubscribe();
-  },[])
+  // useEffect(()=>{
+  //    const unsubscribe = onAuthStateChanged(auth,async(user)=>{
+  //     const userRef=await getDoc(doc(db,"users",user.uid))
+  //     const userData=userRef.data();
+  //     dispatch(setUser(userData));
+      
+  //      console.log(userData);
+  //      navigate("/home")
+  //    })
+  //    return ()=>unsubscribe();
+  // },[])
   return (
     <div className="App">
       <AppRoutes/>

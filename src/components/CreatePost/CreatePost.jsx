@@ -55,7 +55,7 @@ export const CreatePost = ({
     e.preventDefault();
     setPostData((prevData) => ({
       ...prevData,
-      content: postData.content.concat(emojiObject.emoji),
+      content: postData.content + emojiObject.emoji,
     }));
     setShowEmoji(false);
   };
@@ -83,20 +83,13 @@ export const CreatePost = ({
         <div className="icons-and-post-btn-container flex-center">
           <div className="icons-container flex-center">
             <label className="label-for-icons flex-center">
-              <input
-                type="file"
-                accept="image/png, image/jpg, image/gif, image/jpeg"
-                className="input-for-image"
-              />
               <GrImage className="icons" />
               <AiOutlineFileGif className="icons" />
+              <BsEmojiSmile
+                className="icons"
+                onClick={() => setShowEmoji((showEmoji) => !showEmoji)}
+              />
             </label>
-            {showEmoji && (
-              <div className="emoji-container">
-                <Picker onEmojiClick={onEmojiClick} />
-                hello
-              </div>
-            )}
           </div>
 
           <span className="btn-container flex-center">
@@ -118,6 +111,12 @@ export const CreatePost = ({
           </span>
         </div>
       </div>
+
+      {showEmoji && (
+        <div className="emojicontainer">
+          <Picker onEmojiClick={onEmojiClick} className="picker-emoji" />
+        </div>
+      )}
     </div>
   );
 };
