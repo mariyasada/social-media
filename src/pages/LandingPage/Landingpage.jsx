@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/index";
 
 export const LandingPage = () => {
-  const {
-    user: { isLoggedIn },
-  } = useAuth();
+  // const {
+  //   user: { isLoggedIn },
+  // } = useAuth();
   return (
     <div className="home-page flex-center">
       <div className="image-container flex-center">
@@ -17,7 +17,7 @@ export const LandingPage = () => {
           <p>Share your thoughts with people. </p>
         </span>
         <span>
-          <Link to={isLoggedIn ? "/home" : "/login"}>
+          <Link to="/login">
             <button className="btn btn-homepage border-round">Join Now</button>
           </Link>
         </span>

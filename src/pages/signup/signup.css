@@ -38,10 +38,10 @@
   left: 23rem;
 }
 .password-badge {
-  top: 24.5rem;
+  top: 30rem;
 }
 .confirm-password-badge {
-  top: 29.8rem;
+  top: 35.3rem;
 }
 .btn.login-btn {
   background-color: var(--primary-color);

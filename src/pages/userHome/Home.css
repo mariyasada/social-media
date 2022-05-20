@@ -30,29 +30,29 @@
 @media screen and (max-width: 900px) {
   .home-page-container {
     flex-wrap: wrap;
-    margin: 7rem 0 0 -4rem;
+    margin: 7rem 0 0 -3.3rem;
     flex-direction: column-reverse;
     gap: 0;
   }
   .textarea-of-createPost {
-    width: 74vw;
+    width: 72vw;
   }
   .user-list-container {
     align-self: center;
     width: 88vw;
-    margin-left: 8%;
+    margin-left: 10%;
   }
   .filter-item-container {
-    width: 93%;
+    width: 86vw;
   }
   .heading-of-post {
-    margin-left: 6px;
+    margin-left: 10px;
   }
   .userpost-container {
     width: 93%;
   }
   .icons-container {
-    width: 40%;
+    width: 35%;
   }
   .input-and-sendbtn-container {
     width: 87%;
@@ -60,5 +60,10 @@
   }
   .users-post-details-container {
     min-width: 45ch;
+  }
+  .btn-of-post {
+    max-width: 3rem;
+    padding: 5px;
+    font-size: 1.1rem;
   }
 }

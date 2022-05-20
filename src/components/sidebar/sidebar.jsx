@@ -6,9 +6,6 @@ import { useAuth } from "../../contexts";
 import { CgProfile } from "../icons";
 
 export const Sidebar = () => {
-  const {
-    user: { isLoggedIn },
-  } = useAuth();
   const getActivestylelink = ({ isActive }) => ({
     background: isActive ? "#b4cece" : "",
   });
@@ -28,16 +25,6 @@ export const Sidebar = () => {
             </NavLink>
           );
         })}
-        {isLoggedIn && (
-          <NavLink
-            to="/profile"
-            className="sidebar-item-with-icon flex-center"
-            style={getActivestylelink}
-          >
-            <CgProfile className="sidebar-icon" />
-            <h3 className="sidebar-item-title">Profile</h3>
-          </NavLink>
-        )}
       </ul>
     </aside>
   );

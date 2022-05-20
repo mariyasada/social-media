@@ -61,8 +61,9 @@
   }
   .search-input-container {
     position: absolute;
-    width: 95vw;
-    top: 6.5rem;
+    width: 97vw;
+    margin-left: 5px;
+    top: 6.2rem;
     z-index: 4;
     background-color: var(--white-color);
   }

@@ -1,17 +1,28 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/index";
 import { Humburger } from "../Humburger/Humburger";
 import { BsSearch, MdMenu, GiCancel } from "../icons";
 import "../NavBar/Navbar.css";
+import { logOut } from "../../redux/auth/authslice";
 
 export const Navbar = () => {
-  const {
-    user: { isLoggedIn },
-    signOutHandler,
-  } = useAuth();
+  const { isUserLoggedIn } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const signoutHandler = async (e) => {
+    try {
+      e.preventDefault();
+      await dispatch(logOut()).unwrap();
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+      toast("could not complete the request", { icon: "❌" });
+    }
+  };
+
   return (
     <nav className="header-container flex-center">
       <div className="menu-icon-and-logo-conatiner flex-center">
@@ -42,12 +53,10 @@ export const Navbar = () => {
 
       <div className="header-login-button-container">
         <span>
-          {isLoggedIn ? (
+          {isUserLoggedIn ? (
             <button
               className="btn nav-btn border-round"
-              onClick={(e) => {
-                e.preventDefault(), signOutHandler();
-              }}
+              onClick={(e) => signoutHandler(e)}
             >
               Logout
             </button>

@@ -1,14 +1,15 @@
 export const initialLogInData = {
-    username: "",
+    email: "",
     password: ""
 }
 export const initialSignUpData = {
     firstName: "",
     lastName: "",
-    username: "",
+    email: "",
+    username:"",
     password: ""
 }
 export const guestData = {
-    username: "adarshbalika",
-    password: "adarshBalika123",
+    email: "mariyasada2406@gmail.com",
+    password: "123456",
   };

@@ -16,9 +16,13 @@ export const Explore = () => {
   return (
     <div className="explore-page-container flex-center">
       <div className="userallpost-container flex-center flex-direction-column">
-        {Listofposts.map((userpost) => {
+        {/* {Listofposts.map((userpost) => {
           return <UsersPost Post={userpost} key={userpost._id} />;
-        })}
+        })} */}
+        <UsersPost />
+        <UsersPost />
+        <UsersPost />
+        <UsersPost />
       </div>
       <div className="list-of-users-container">
         <UserList />
