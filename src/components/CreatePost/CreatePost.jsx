@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { GrImage, AiOutlineFileGif, BsEmojiSmile } from "../icons";
 import "../CreatePost/createpost.css";
-import { useAuth, usePosts } from "../../contexts";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { addPosts, editPost } from "../../redux/post/postSlice";
+import Picker from "emoji-picker-react-2";
 
-export const CreatePost = () => {
-  const {
-    user: { userData },
-  } = useAuth();
-  const {
-    postData,
-    setPostData,
-    createPostHandler,
-    editPostHandler,
-    isEditing,
-    setIsEditing,
-  } = usePosts();
+export const CreatePost = ({
+  postData,
+  setPostData,
+  isEditing,
+  setIsEditing,
+}) => {
+  const [showEmoji, setShowEmoji] = useState(false);
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { firstName, lastName, username, photoURL } = user;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -23,13 +24,24 @@ export const CreatePost = () => {
   };
   const createPostclickHandler = () => {
     if (postData === "") {
-      toast("please fill the form field");
+      toast("please fill the form field", { icon: "✔" });
     } else if (postData && isEditing) {
-      editPostHandler(postData);
+      dispatch(editPost(postData));
       setIsEditing(!isEditing);
       toast("suceessfully post updated", { icon: "✔" });
     } else {
-      createPostHandler(postData);
+      dispatch(
+        addPosts({
+          ...postData,
+          user: {
+            firstName,
+            lastName,
+            username,
+            photoURL,
+            createdAt: Date.now(),
+          },
+        })
+      );
     }
     setPostData({ content: " " });
   };
@@ -38,17 +50,21 @@ export const CreatePost = () => {
     setIsEditing(false);
     setPostData({ content: " " });
   };
+  const onEmojiClick = (e, emojiObject) => {
+    e.preventDefault();
+    setPostData((prevData) => ({
+      ...prevData,
+      content: postData.content + emojiObject.emoji,
+    }));
+    setShowEmoji(false);
+  };
 
   return (
     <div className="create-post-container flex-center border-round">
       <div className="avatar-image-container">
         <img
           className="avatar avatar-xsm"
-          src={
-            userData.profile
-              ? userData.profile
-              : "https://iqra-ui.netlify.app/images/blank.png"
-          }
+          src={user.photoURL ? user.photoURL : "https://picsum.photos/200"}
           alt="user profile"
         />
       </div>
@@ -66,16 +82,15 @@ export const CreatePost = () => {
         <div className="icons-and-post-btn-container flex-center">
           <div className="icons-container flex-center">
             <label className="label-for-icons flex-center">
-              <input
-                type="file"
-                accept="image/png, image/jpg, image/gif, image/jpeg"
-                className="input-for-image"
-              />
               <GrImage className="icons" />
               <AiOutlineFileGif className="icons" />
-              <BsEmojiSmile className="icons" />
+              <BsEmojiSmile
+                className="icons"
+                onClick={() => setShowEmoji((showEmoji) => !showEmoji)}
+              />
             </label>
           </div>
+
           <span className="btn-container flex-center">
             {isEditing && (
               <button
@@ -94,6 +109,12 @@ export const CreatePost = () => {
           </span>
         </div>
       </div>
+
+      {showEmoji && (
+        <div className="emojicontainer">
+          <Picker onEmojiClick={onEmojiClick} className="picker-emoji" />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,27 +1,39 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "../../components/icons";
 import { initialSignUpData } from "../../constants/auth-Constants";
-import { useAuth } from "../../contexts/auth-context";
 import "../signup/signup.css";
+import { signUp } from "../../redux/auth/authslice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Signup = () => {
   const [isShow, setShow] = useState(true);
   const [isconfShow, setConfShow] = useState(true);
   const [errmessage, seterrMessage] = useState("");
   const [signupData, setSignupData] = useState(initialSignUpData);
-  const { signUpHandler } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { signupstatus } = useSelector((state) => state.auth);
 
   const signupDataChangeHandler = (e) => {
     seterrMessage("");
     const { name, value } = e.target;
     setSignupData((prevData) => ({ ...prevData, [name]: value }));
   };
-  const passwordMathcingHandler = (e, pwd1, pwd2) => {
-    if (pwd1 === pwd2) {
+  const passwordMathcingHandler = async (e, pwd1, pwd2) => {
+    if (pwd1.length < 6) {
+      e.preventDefault();
+      seterrMessage("password must be 7 character long ");
+    } else if (pwd1 === pwd2) {
       e.preventDefault();
       seterrMessage(" ");
-      signUpHandler({ signupData });
+      try {
+        await dispatch(signUp(signupData)).unwrap();
+        setSignupData(initialSignUpData);
+        navigate("/home");
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       e.preventDefault();
       seterrMessage("password and confirmpassord doesn't match");
@@ -62,12 +74,26 @@ export const Signup = () => {
             />
           </div>
           <div className="label-input-container flex-center flex-direction-column ">
+            <label htmlFor="email" className="label-for-login ">
+              Email
+            </label>
+            <input
+              type="text"
+              placeholder="abc@gmail.com"
+              className="input-textbox input-signup"
+              id="email"
+              name="email"
+              required
+              onChange={(e) => signupDataChangeHandler(e)}
+            />
+          </div>
+          <div className="label-input-container flex-center flex-direction-column ">
             <label htmlFor="username" className="label-for-login ">
               Username
             </label>
             <input
               type="text"
-              placeholder="JohnDeo"
+              placeholder="abc@gmail.com"
               className="input-textbox input-signup"
               id="username"
               name="username"
@@ -129,7 +155,7 @@ export const Signup = () => {
                 )
               }
             >
-              Register
+              {signupstatus === "loading" ? "Saving Data..." : "Register"}
             </button>
           </span>
 

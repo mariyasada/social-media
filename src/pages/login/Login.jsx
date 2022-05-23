@@ -1,23 +1,45 @@
 import React, { useState } from "react";
 import "../login/login.css";
 import { FaEye, FaEyeSlash } from "../../components/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../signup/signup.css";
 import { guestData, initialLogInData } from "../../constants/auth-Constants";
-import { useAuth } from "../../contexts/auth-context";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/auth/authslice";
+import toast from "react-hot-toast";
 
 export const Login = () => {
   const [isShow, setShow] = useState(true);
   const [logInData, setLogInData] = useState(initialLogInData);
-  const { logInHandler } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // const dispatch = useDispatch();
 
   const logInChangeHandler = (e) => {
     const { name, value } = e.target;
     setLogInData((prevdata) => ({ ...prevdata, [name]: value }));
+  };
+
+  const logInHandler = async (e) => {
+    try {
+      e.preventDefault();
+      await dispatch(logIn(logInData)).unwrap();
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+      toast("could not complete the request", { icon: "❌" });
+    }
+  };
+  const guestLoginHandler = async (e) => {
+    try {
+      e.preventDefault();
+      await dispatch(logIn(guestData)).unwrap();
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+      toast("could not complete the request", { icon: "❌" });
+    }
   };
   return (
     <div className="login-container-with-image flex-center">
@@ -33,14 +55,14 @@ export const Login = () => {
         <form className="login-form">
           <div className="label-input-container flex-center flex-direction-column">
             <label htmlFor="username" className="label-for-login ">
-              Username
+              Email
             </label>
             <input
               type="text"
-              name="username"
-              placeholder="JohnDeo"
+              name="email"
+              placeholder="JohnDeo@gmail.com"
               className="input-textbox input-signup"
-              id="username"
+              id="email"
               required
               onChange={(e) => logInChangeHandler(e)}
             />
@@ -69,11 +91,7 @@ export const Login = () => {
           <span>
             <button
               className="btn login-btn border-round"
-              onClick={(e) => {
-                e.preventDefault();
-                logInHandler(logInData);
-                // dispatch(logIn(logInData));
-              }}
+              onClick={logInHandler}
             >
               Login
             </button>
@@ -81,9 +99,7 @@ export const Login = () => {
           <span>
             <button
               className="btn login-btn-outline border-round"
-              onClick={(e) => {
-                e.preventDefault(), logInHandler(guestData);
-              }}
+              onClick={guestLoginHandler}
             >
               Login As Guest
             </button>
