@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../redux/auth/authslice";
+import { getUsers, followUser, unfollowUser } from "../../redux/auth/authslice";
 import "../ListOfuser/userlist.css";
 
 export const UserList = () => {
   const dispatch = useDispatch();
   const { users, user } = useSelector((state) => state.auth);
+  // const isAnyFollower = users.map((user) =>
+  //   user.followers.some((id) => user.id)
+  // );
+
+  // console.log(users, "multipleusers");
   useEffect(() => {
     try {
       if (user) {
@@ -24,19 +29,40 @@ export const UserList = () => {
         <p className="who-to-follow">Who to Follow?</p>
         <p className="show-more">Show More</p>
       </div>
-      {users.map((user) => {
+      {users.map((followeruser) => {
         return (
-          <div className="user-with-avatar-container flex-center" key={user.id}>
+          <div
+            className="user-with-avatar-container flex-center"
+            key={followeruser.id}
+          >
             <div className="image-with-username flex-center">
               <img
-                src={user.photoURL ? user.photoURL : "./assets/avatar.png"}
+                src={
+                  followeruser.photoURL
+                    ? followeruser.photoURL
+                    : "./assets/avatar.png"
+                }
                 alt="user-profile"
                 className="avatar avatar-xsm"
               />
-              <p className="username-from-userlist">{user.username}</p>
+              <p className="username-from-userlist">{followeruser.username}</p>
             </div>
             <span className="follow-btn-container">
-              <button className="btn btn-follow border-round">Follow</button>
+              {user.following?.some((id) => id === followeruser.id) ? (
+                <button
+                  className="btn btn-follow border-round"
+                  onClick={() => dispatch(unfollowUser(followeruser.id))}
+                >
+                  Unfollow
+                </button>
+              ) : (
+                <button
+                  className="btn btn-follow border-round"
+                  onClick={() => dispatch(followUser(followeruser.id))}
+                >
+                  Follow
+                </button>
+              )}
             </span>
           </div>
         );

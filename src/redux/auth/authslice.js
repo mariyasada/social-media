@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,setPersistence ,browserLocalPersistence} from "firebase/auth";
-import { doc, getFirestore, setDoc,getDoc,collection, query, where,getDocs  } from "firebase/firestore";
+import { doc, getFirestore, setDoc,getDoc,collection, query, where,getDocs, arrayUnion,updateDoc,arrayRemove  } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { app,db } from "../../firebaseconfige";
 
@@ -21,9 +21,12 @@ export const signUp = createAsyncThunk(
   async ({ firstName, lastName, email, password,username }) => {
     try {
       const auth = getAuth(app);
-      const {user} = await createUserWithEmailAndPassword(auth, email, password);  
-      await setDoc(doc(db, "users",user.uid),{firstName,lastName,username,email,id:user.uid,photoURL:"https://ik.imagekit.io/qrhnvir8bf0/videolibararyimages/avatar-gfa750efa1_1280_28DURVv8c.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652948272807"});
-        return {firstName,lastName,username,email,id:user.uid,photoURL:"https://ik.imagekit.io/qrhnvir8bf0/videolibararyimages/avatar-gfa750efa1_1280_28DURVv8c.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652948272807"};
+      const {user} = await createUserWithEmailAndPassword(auth, email, password); 
+      console.log(user.accessToken,"authentication"); 
+      const userObject={firstName,lastName,username,email,id:user.uid,photoURL:"https://ik.imagekit.io/qrhnvir8bf0/videolibararyimages/avatar-gfa750efa1_1280_28DURVv8c.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652948272807",followers:[],following:[]}
+     
+      await setDoc(doc(db, "users",user.uid),userObject);
+        return userObject;
     } catch (error) {
       console.error(error);
     }
@@ -70,6 +73,7 @@ export const logOut=createAsyncThunk(
    const userQuery = query(userRef, where("email", "!=",user.email ));
    const userquerySnapshot = await getDocs(userQuery);
    const users= userquerySnapshot.docs.map(userdocument=>({...userdocument.data(),id:userdocument.id}));
+   const userdataRef= await getDoc(doc(db,"users",user.id));
    return users;
     }
     catch(err){
@@ -78,6 +82,52 @@ export const logOut=createAsyncThunk(
     }
 
   })
+
+export const followUser=createAsyncThunk("auth/followUser",async(followuserId,{getState})=>{
+    console.log(followuserId);
+    const userstate=getState();
+    const user=userstate.auth.user;
+    console.log(user);
+ try
+ {
+  const userRef = doc(db,"users",user.id);
+  const userUpdatedRef=await updateDoc(userRef,{
+    following:arrayUnion(followuserId)
+  });
+
+  const followrUserRef=doc(db,"users",followuserId);
+  const followersUserRef=await updateDoc(followrUserRef,{
+    followers:arrayUnion(user.id)
+  })
+  return {followuserId,userId:user.id}
+}
+catch(err) {
+  console.log(err);
+  return Promise.reject(err);
+}
+  })
+
+  export const unfollowUser=createAsyncThunk("auth/unfollowUser",async(followuserId,{getState})=>{
+    const userstate=getState();
+    const user=userstate.auth.user;
+    console.log(user);
+    try {
+          const userDataRef =doc(db,"users",user.id);
+          const postRef=await updateDoc(userDataRef,{
+            following:arrayRemove(followuserId)
+          });
+          const followerUserRef=doc(db,"users",followuserId);
+          const followersUserRef=await updateDoc(followerUserRef,{
+            followers:arrayRemove(user.id)
+          })
+            return {followuserId,userId:user.id}
+    }
+    catch(err) {
+                console.log(err);
+                return Promise.reject(err);
+            }
+  })
+  
 
 const AuthSlice = createSlice({
   name: "auth",
@@ -128,6 +178,16 @@ const AuthSlice = createSlice({
       state.isUserLoggedIn=false;
       state.signoutstatus="succeed"
     },
+    [followUser.fulfilled]:(state,action)=>{
+      state.user.following.push(action.payload.followuserId);
+      state.users=state.users.map((user)=>user.id===action.payload.followuserId?({...user,followers:[user.followers,action.payload.userId]}):user);
+      
+    },
+    [unfollowUser.fulfilled]:(state,action)=>{
+      console.log(action.payload.userId,action.payload.followerId,"unfollower");
+      state.user={...state.user,following:state.user.following.filter(id=> id !== action.payload.followuserId)};
+      state.users=state.users.map((user)=>user.id===action.payload.followuserId?({...user,followers:user.followers.filter(id=>id !==action.payload.userId)}):user);
+    }
   },
 });
 export default AuthSlice.reducer;

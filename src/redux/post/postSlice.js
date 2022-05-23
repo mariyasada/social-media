@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { doc, getFirestore, setDoc,getDoc,collection, addDoc, getDocs, deleteDoc,updateDoc,onSnapshot } from "firebase/firestore";
+import { doc, getFirestore,query, setDoc,getDoc,collection, addDoc, getDocs, deleteDoc,updateDoc,onSnapshot,arrayUnion,arrayRemove, where, limit } from "firebase/firestore";
 import { app,db } from "../../firebaseconfige";
 
 const initialState = {
@@ -67,6 +67,63 @@ export const editPost=createAsyncThunk("post/editPost",async(postData)=>{
   }
 
 })
+export const LikedPost=createAsyncThunk("post/LikedPost",async(PostId,{getState})=>{
+  const userState=getState();
+  const userData=userState.auth.user;
+
+  
+try{
+ const postDocumentRef =doc(db,"posts",PostId);
+  const postRef=await updateDoc(postDocumentRef,{
+      likes:arrayUnion(userData.id)
+    });
+
+  const bookmarkRef= await getDocs(query(collection(db,"bookmarks"),where("id","==",PostId),limit(1)))
+
+   bookmarkRef.forEach((bookmark)=>{
+     if(bookmark.data().user.id===userData.id)
+     {
+     updateDoc(doc(db,"bookmarks",bookmark.id),{
+        likes:arrayUnion(userData.id)
+     })
+    }
+   });
+ 
+  return {PostId,userId:userData.id}
+}
+catch(err){
+  console.log(err);
+  return Promise.reject(err);
+}
+
+})
+
+export const disLikedPost=createAsyncThunk("post/disLikedPost",async(PostId,{getState})=>{
+  const userState=getState();
+  const userData=userState.auth.user;
+try {
+  const postDocumentRef =doc(db,"posts",PostId);
+  const postRef=await updateDoc(postDocumentRef,{
+    likes:arrayRemove(userData.id)
+  });
+
+  const bookmarkRef= await getDocs(query(collection(db,"bookmarks"),where("id","==",PostId),limit(1)))
+
+ bookmarkRef.forEach((bookmark)=>{
+   if(bookmark.data().user.id===userData.id){
+   updateDoc(doc(db,"bookmarks",bookmark.id),{
+     likes:arrayRemove(userData.id)
+   })
+  }
+ });
+  return {PostId,userId:userData.id}
+}
+
+catch(err){
+  console.log(err);
+  return Promise.reject(err);
+}
+})
 
 
 const PostSlice = createSlice({
@@ -117,6 +174,14 @@ const PostSlice = createSlice({
     [editPost.rejected]: (state, action) => {
       state.error = `could not complete the request`;
       state.editPostStatus = "rejected";
+    },
+    [LikedPost.fulfilled]: (state, action) => {
+     state.Posts=state.Posts.map((post)=>post.id===action.payload.PostId ?({...post,likes:post.likes.concat(action.payload.userId)}):post); 
+     state.editPostStatus="succeed"
+    },
+    [disLikedPost.fulfilled]: (state, action) => {
+     state.Posts=state.Posts.map((post)=>post.id===action.payload.PostId ?({...post,likes:post.likes.filter(id=>id !==action.payload.userId)}):post); 
+     state.editPostStatus="succeed"
     },
   },
 });
