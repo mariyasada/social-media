@@ -16,7 +16,7 @@ export const CreatePost = ({
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { firstName, lastName, username, photoURL } = user;
+  const { firstName, lastName, username, photoURL, id } = user;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -34,6 +34,7 @@ export const CreatePost = ({
         addPosts({
           ...postData,
           user: {
+            id,
             firstName,
             lastName,
             username,

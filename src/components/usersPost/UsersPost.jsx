@@ -15,10 +15,19 @@ import {
 import { CommentSection } from "../commentsection/comment";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost } from "../../redux/post/postSlice";
+import {
+  deletePost,
+  LikedPost,
+  disLikedPost,
+} from "../../redux/post/postSlice";
+import {
+  addToBookmark,
+  deletePostFromBookmark,
+} from "../../redux/bookmark/bookmarkSlice";
 
 export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
   const { user } = useSelector((store) => store.auth);
+  const { bookmarks } = useSelector((store) => store.bookmark);
   const { pathname } = useLocation();
   const [isShow, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -27,6 +36,10 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
     setIsEditing(true);
     setPostData(Post);
   };
+  const bookmarkId = bookmarks.find((post) => post.id === Post.id)?.bookmarkId;
+
+  const isLiked = Post.likes?.some((id) => id === user.id);
+
   return (
     <div className="user-post-comment-container flex-center flex-direction-column border-round">
       <div className="user-post flex-center border-round">
@@ -70,7 +83,19 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
           </div>
           <div className="user-post-icons-container flex-center">
             <span className="background-of-icon flex-center">
-              <FaRegHeart className="action-icons" title="Like" />
+              {isLiked ? (
+                <FaHeart
+                  className="action-icons color-red"
+                  title="disLike"
+                  onClick={() => dispatch(disLikedPost(Post.id))}
+                />
+              ) : (
+                <FaRegHeart
+                  className="action-icons"
+                  title="Like"
+                  onClick={() => dispatch(LikedPost(Post.id))}
+                />
+              )}
             </span>
             <span className="background-of-icon flex-center">
               <FaRegComment
@@ -83,10 +108,26 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
               <FiShare2 className="action-icons" title="Share" />
             </span>
             <span className="background-of-icon flex-center">
-              <FaRegBookmark className="action-icons" title="BookMark" />
+              {bookmarkId ? (
+                <FaBookmark
+                  className="action-icons"
+                  title="remove fromBookMark"
+                  onClick={() =>
+                    dispatch(
+                      deletePostFromBookmark({ bookmarkId, id: Post.id })
+                    )
+                  }
+                />
+              ) : (
+                <FaRegBookmark
+                  className="action-icons"
+                  title="BookMark"
+                  onClick={() => dispatch(addToBookmark(Post))}
+                />
+              )}
             </span>
 
-            {user.username === Post.user.username && pathname !== "/profile" && (
+            {user.username === Post.user.username && pathname === "/home" && (
               <span className="background-of-icon flex-center">
                 <Link to="/home">
                   <FaEdit

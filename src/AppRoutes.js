@@ -14,7 +14,7 @@ export const AppRoutes = () => {
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/home" element={<RequireAuth children={<Home/>}/>}/>
-          <Route path="/explore" element={<Explore/>}/>
+          <Route path="/explore" element={<RequireAuth children={<Explore/>}/>}/>
           <Route path="/bookmark" element={<RequireAuth children={<Bookmark/>}></RequireAuth>}/>
           <Route path="/profile" element={<RequireAuth children={<UserProfile/>}></RequireAuth>}/>
           <Route path="*" element={<PageNotFound/>}/>
