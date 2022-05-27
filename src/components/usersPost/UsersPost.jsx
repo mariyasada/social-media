@@ -7,12 +7,11 @@ import {
   FaRegHeart,
   FaTrash,
   FiShare2,
-  IoSend,
   BsThreeDots,
   FaBookmark,
   FaHeart,
 } from "../icons";
-import { CommentSection } from "../commentsection/comment";
+import { CommentSection, Loader } from "../../components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -24,10 +23,16 @@ import {
   addToBookmark,
   deletePostFromBookmark,
 } from "../../redux/bookmark/bookmarkSlice";
+import toast from "react-hot-toast";
 
 export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
-  const { user } = useSelector((store) => store.auth);
-  const { bookmarks } = useSelector((store) => store.bookmark);
+  const { user } = useSelector((state) => state.auth);
+  const { deletePostStatus, likedPostStatus, dislikedPostStatus } = useSelector(
+    (state) => state.post
+  );
+  const { bookmarks, status, deletebookmarkStatus } = useSelector(
+    (state) => state.bookmark
+  );
   const { pathname } = useLocation();
   const [isShow, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -35,10 +40,13 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
   const seteditData = (Post) => {
     setIsEditing(true);
     setPostData(Post);
+    toast("go to the text editor", { icon: "✔" });
   };
-  const bookmarkId = bookmarks.find((post) => post.id === Post.id)?.bookmarkId;
+  const bookmarkId = bookmarks.find(
+    (bookmark) => bookmark.post.id === Post.id
+  )?.bookmarkId;
 
-  const isLiked = Post.likes?.some((id) => id === user.id);
+  const isliked = Post.likes?.some((id) => id === user.id);
 
   return (
     <div className="user-post-comment-container flex-center flex-direction-column border-round">
@@ -58,14 +66,12 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
           <div className="username-and-icon flex-center">
             <p className="username-from-posts">{Post.user.username}</p>
             <span className="more-options">
-              {pathname === "/profile" ? (
+              {user.username === Post.user.username ? (
                 <FaTrash
                   className="more-option-icon"
                   title="Delete"
-                  onClick={
-                    user.username === Post.user.username
-                      ? () => dispatch(deletePost(Post.id))
-                      : null
+                  onClick={() =>
+                    dispatch(deletePost({ postId: Post.id, bookmarkId }))
                   }
                 />
               ) : (
@@ -83,7 +89,7 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
           </div>
           <div className="user-post-icons-container flex-center">
             <span className="background-of-icon flex-center">
-              {isLiked ? (
+              {isliked ? (
                 <FaHeart
                   className="action-icons color-red"
                   title="disLike"
@@ -107,6 +113,21 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
             <span className="background-of-icon flex-center">
               <FiShare2 className="action-icons" title="Share" />
             </span>
+            {user.username === Post.user.username && pathname === "/home" && (
+              <span className="background-of-icon flex-center">
+                <Link to="/home">
+                  <FaEdit
+                    className="action-icons"
+                    title="Edit"
+                    onClick={
+                      user.username === Post.user.username
+                        ? () => seteditData(Post)
+                        : null
+                    }
+                  />
+                </Link>
+              </span>
+            )}
             <span className="background-of-icon flex-center">
               {bookmarkId ? (
                 <FaBookmark
@@ -126,27 +147,18 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
                 />
               )}
             </span>
-
-            {user.username === Post.user.username && pathname === "/home" && (
-              <span className="background-of-icon flex-center">
-                <Link to="/home">
-                  <FaEdit
-                    className="action-icons"
-                    title="Edit"
-                    onClick={
-                      user.username === Post.user.username
-                        ? () => seteditData(Post)
-                        : null
-                    }
-                  />
-                </Link>
-              </span>
-            )}
           </div>
         </div>
         <hr />
       </div>
-      {isShow && <CommentSection />}
+      {isShow && <CommentSection PostId={Post.id} Post={Post} />}
+      <div className="loader homepage">
+        {deletePostStatus === "loading" ||
+          likedPostStatus === "loading" ||
+          dislikedPostStatus === "loading" ||
+          deletebookmarkStatus === "loading" ||
+          (status === "loading" && <Loader />)}
+      </div>
     </div>
   );
 };

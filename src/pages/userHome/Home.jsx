@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CreatePost, FilterBar, UserList, UsersPost } from "../../components";
-import postSlice, { getPosts } from "../../redux/post/postSlice";
+import {
+  CreatePost,
+  FilterBar,
+  Loader,
+  UserList,
+  UsersPost,
+} from "../../components";
+import postSlice, { FetchComments, getPosts } from "../../redux/post/postSlice";
 import { getBookmarks } from "../../redux/bookmark/bookmarkSlice";
 import "../userHome/Home.css";
 
 export const Home = () => {
   const [postData, setPostData] = useState({ content: "" });
   const [isEditing, setIsEditing] = useState(false);
-  const { Posts } = useSelector((state) => state.post);
+  const { Posts, status, getPostStatus } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -16,15 +22,15 @@ export const Home = () => {
     try {
       dispatch(getPosts());
       dispatch(getBookmarks());
+      dispatch(FetchComments());
     } catch (err) {
       console.log(err, "could not complete the request");
     }
   }, [dispatch]);
 
-  // const postByFollowedUser = Posts.filter((post) =>
-  //   user.following.includes(post.user.id)
-  // );
-  // console.log(postByFollowedUser);
+  const postByFollowedUser = Posts.filter(
+    (post) => user.following.includes(post.userId) || post.userId === user.id
+  );
 
   return (
     <div className="home-page-container flex-center">
@@ -36,23 +42,27 @@ export const Home = () => {
           isEditing={isEditing}
           setIsEditing={setIsEditing}
         />
-        <FilterBar />
         <h1 className="heading-of-post">Latest Posts</h1>
         <div className="userpost-container flex-center flex-direction-column">
-          {Posts.map((post) => {
-            return (
-              <UsersPost
-                key={post.id}
-                Post={post}
-                setPostData={setPostData}
-                setIsEditing={setIsEditing}
-              />
-            );
-          })}
+          {postByFollowedUser
+            .map((post) => {
+              return (
+                <UsersPost
+                  key={post.id}
+                  Post={post}
+                  setPostData={setPostData}
+                  setIsEditing={setIsEditing}
+                />
+              );
+            })
+            .reverse()}
         </div>
       </div>
       <div className="user-list-container">
         <UserList />
+      </div>
+      <div className="loader homepage">
+        {status === "loading" || (getPostStatus === "loading" && <Loader />)}
       </div>
     </div>
   );

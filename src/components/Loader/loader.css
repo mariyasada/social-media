@@ -1,0 +1,26 @@
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border: 7px solid var(--primary-color);
+  border-top: 7px solid var(--primary-color-dark);
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
+@media screen and (max-width: 900px) {
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--primary-color);
+    border-top: 4px solid var(--primary-color-dark);
+  }
+}

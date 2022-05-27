@@ -3,23 +3,24 @@ import { useAuth } from "../../contexts";
 import { FaUserAlt, FiLogOut, FaUserCircle } from "../icons";
 import "../Humburger/humburger.css";
 import { sidebarMenu } from "../../constants/sidebarConstant";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/auth/authslice";
 import toast from "react-hot-toast";
 
 export const Humburger = () => {
-  const { isUserLoggedIn } = useSelector((state) => state.auth);
+  const { isUserLoggedIn, user } = useSelector((state) => state.auth);
   const getActiveStyle = ({ isActive }) => ({
     color: isActive ? "red" : "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const signoutHnadler = async (e) => {
     try {
       e.preventDefault();
       await dispatch(logOut()).unwrap();
-      navigate("/home");
+      navigate("/");
       toast("sucessfully logout", { icon: "✔" });
     } catch (err) {
       console.log(err);
@@ -31,7 +32,9 @@ export const Humburger = () => {
         {sidebarMenu.map(({ Icon, path, name }) => {
           return (
             <NavLink
-              to={`${path}`}
+              to={
+                name === "Profile" ? `${path.concat(`/${user.id}`)}` : `${path}`
+              }
               key={name}
               className="hamburger-menu-item flex-center flex-direction-column"
               style={getActiveStyle}
@@ -47,7 +50,7 @@ export const Humburger = () => {
           <NavLink
             to="/"
             className="hamburger-menu-item flex-center flex-direction-column"
-            onClick={signoutHnadler}
+            onClick={(e) => signoutHnadler(e)}
           >
             <li className="hamburger-item flex-center">
               <FiLogOut />

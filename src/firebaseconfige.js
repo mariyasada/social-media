@@ -8,11 +8,11 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCYUwkPofGdkFw2TjHh4X1x-XK6z5UQAXg",
-  authDomain: "insta-connect-15e55.firebaseapp.com",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: "insta-connect-15e55",
   storageBucket: "insta-connect-15e55.appspot.com",
-  messagingSenderId: "399048392481",
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: "1:399048392481:web:d66a7551ac7fb094658860",
   measurementId: "G-34GVXYCXE7"
 };

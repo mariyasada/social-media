@@ -1,6 +1,6 @@
 .filter-item-container {
   background-color: var(--white-color);
-  width: 100%;
+  width: 88%;
   margin-top: 1rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
@@ -15,4 +15,15 @@
   border: 2px solid var(--primary-color);
   padding: 8px;
   border-radius: 50px;
+  cursor: pointer;
+}
+.filter-item.filter-link-active {
+  background: linear-gradient(
+    15deg,
+    var(--primary-color),
+    var(--primary-color-medium)
+  );
+  border: none;
+  color: var(--white-color);
+  transition: all 0.5s ease 0s;
 }
