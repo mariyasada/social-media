@@ -13,6 +13,7 @@ export const UserProfile = () => {
   const dispatch = useDispatch();
 
   const { currentUserId } = useParams();
+  console.log(currentUserId);
 
   const loggedInUserPost = Posts.filter(
     (post) => post.user.username === user.username
