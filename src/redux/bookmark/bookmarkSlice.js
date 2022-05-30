@@ -36,13 +36,20 @@ export const getBookmarks=createAsyncThunk("bookmark/getBookmarks",async(arg,{ge
   try{
     const userstate=getState();
     const user=userstate.auth.user;
-    const bookmarkQuery=query(collectionRef,where("userId", "==", user.id)) 
+    const currentUserId=localStorage.getItem("user_id") ; 
+    const bookmarkQuery=query(collectionRef,where("userId", "==", currentUserId)) 
     const allBookmarkSnap=await getDocs(bookmarkQuery);
     let bookmarks=[];
-    for await (const bookmark of allBookmarkSnap.docs){      
+    for await (const bookmark of allBookmarkSnap.docs){         
       const bookmarkData=bookmark.data()
       const postRef= await getDoc(doc(db,"posts",bookmarkData.postId))
-      bookmarks =[...bookmarks,{post:postRef.data(),bookmarkId:bookmark.id}];
+      const postData=postRef.data();
+     const userSnap=await getDoc(doc(db,"users",postData.userId))     
+      const userData=userSnap.data();  
+      bookmarks = [
+          ...bookmarks,
+          { post: { ...postData, user:userData }, bookmarkId: bookmark.id },
+        ];
 
     }
     return bookmarks;

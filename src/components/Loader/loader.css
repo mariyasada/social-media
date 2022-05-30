@@ -16,6 +16,15 @@
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
+.spinner-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+}
 @media screen and (max-width: 900px) {
   .loading-spinner {
     width: 40px;

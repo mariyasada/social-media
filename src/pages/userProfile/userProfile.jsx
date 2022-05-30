@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Modal, UsersPost, Loader } from "../../components";
-import { getUserProfileData } from "../../redux/auth/authslice";
+import {
+  followUser,
+  getUserProfileData,
+  unfollowUser,
+} from "../../redux/auth/authslice";
 import "../userProfile/userprofile.css";
 
 export const UserProfile = () => {
@@ -13,7 +17,6 @@ export const UserProfile = () => {
   const dispatch = useDispatch();
 
   const { currentUserId } = useParams();
-  console.log(currentUserId);
 
   const loggedInUserPost = Posts.filter(
     (post) => post.user.username === user.username
@@ -39,7 +42,7 @@ export const UserProfile = () => {
                 ? currentUserProfile?.photoURL
                 : "https://iqra-ui.netlify.app/images/blank.png"
             }
-            alt="user-profile"
+            alt={currentUserProfile?.username}
           />
         </div>
         <h2 className="username color-black">{currentUserProfile.username}</h2>

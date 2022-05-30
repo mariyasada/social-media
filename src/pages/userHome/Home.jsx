@@ -29,7 +29,7 @@ export const Home = () => {
   }, [dispatch]);
 
   const postByFollowedUser = Posts.filter(
-    (post) => user.following.includes(post.userId) || post.userId === user.id
+    (post) => user.following?.includes(post.userId) || post.userId === user.id
   );
 
   return (
@@ -44,18 +44,22 @@ export const Home = () => {
         />
         <h1 className="heading-of-post">Latest Posts</h1>
         <div className="userpost-container flex-center flex-direction-column">
-          {postByFollowedUser
-            .map((post) => {
-              return (
-                <UsersPost
-                  key={post.id}
-                  Post={post}
-                  setPostData={setPostData}
-                  setIsEditing={setIsEditing}
-                />
-              );
-            })
-            .reverse()}
+          {postByFollowedUser.length === 0 ? (
+            <p className="text-to-show">you are not following any user</p>
+          ) : (
+            postByFollowedUser
+              .map((post) => {
+                return (
+                  <UsersPost
+                    key={post.id}
+                    Post={post}
+                    setPostData={setPostData}
+                    setIsEditing={setIsEditing}
+                  />
+                );
+              })
+              .reverse()
+          )}
         </div>
       </div>
       <div className="user-list-container">

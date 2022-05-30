@@ -19,7 +19,7 @@
 @media screen and (max-width: 900px) {
   .explore-page-container {
     flex-wrap: wrap;
-    margin: 7rem 0 0 -4rem;
+    margin: 5rem 0 0 -4rem;
     flex-direction: column-reverse;
     gap: 0;
   }

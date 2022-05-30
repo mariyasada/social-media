@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Humburger } from "../Humburger/Humburger";
 import { BsSearch, MdMenu, GiCancel } from "../icons";
 import "../NavBar/Navbar.css";
-import { logOut } from "../../redux/auth/authslice";
+import { setUserLogOut } from "../../redux/auth/authslice";
 
 export const Navbar = () => {
   const { isUserLoggedIn } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const signoutHandler = async (e) => {
     try {
       e.preventDefault();
-      await dispatch(logOut()).unwrap();
-      navigate("/home");
+      await dispatch(setUserLogOut());
+      navigate("/");
     } catch (err) {
       console.log(err);
       toast("could not complete the request", { icon: "❌" });
@@ -36,7 +37,7 @@ export const Navbar = () => {
             <MdMenu className="menu-icon" onClick={() => setIsOpen(!isOpen)} />
           )}
         </div>
-        <div className="logo-container">
+        <div className="logo-container" style={{ height: "100%" }}>
           <Link to="/">
             <img
               className="logo-image"
@@ -45,10 +46,6 @@ export const Navbar = () => {
             />
           </Link>
         </div>
-      </div>
-      <div className="search-input-container flex-center">
-        <BsSearch className="search-icon" />
-        <input type="text" className="input-search" placeholder="Search" />
       </div>
 
       <div className="header-login-button-container">

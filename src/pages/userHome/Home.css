@@ -27,10 +27,14 @@
   margin: 2rem 2rem 0 0;
   width: 100%;
 }
+.text-to-show {
+  color: var(--primary-color-dark);
+  font-size: 1.3rem;
+}
 @media screen and (max-width: 900px) {
   .home-page-container {
     flex-wrap: wrap;
-    margin: 7rem 0 0 -3.3rem;
+    margin: 5rem 0 0 -3.3rem;
     flex-direction: column-reverse;
     gap: 0;
   }

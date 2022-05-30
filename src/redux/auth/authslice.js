@@ -26,11 +26,9 @@ export const signUp = createAsyncThunk(
     try {
       const auth = getAuth(app);
       const {user} = await createUserWithEmailAndPassword(auth, email, password); 
-      console.log(user.accessToken,"authentication"); 
-      // localStorage.setItem("token",user.accessToken);
       const userObject={firstName,lastName,username,email,id:user.uid,photoURL:"https://ik.imagekit.io/qrhnvir8bf0/videolibararyimages/avatar-gfa750efa1_1280_28DURVv8c.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652948272807",followers:[],following:[]}
       await setDoc(doc(db, "users",user.uid),userObject);
-       localStorage.setItem("user_data",JSON.stringify(userObject)); 
+      localStorage.setItem("user_id",user.uid); 
       return userObject;
     } catch (error) {
       console.error(error);
@@ -43,14 +41,9 @@ export const logIn=createAsyncThunk(
   async ({  email, password}) => {
     try {
       const auth = getAuth(app);
-      // const {user}= await setPersistence(auth, browserLocalPersistence).then(()=>{
-      //   return signInWithEmailAndPassword(auth, email, password);
-      // })
       const {user} = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
-      // localStorage.setItem("token",user.accessToken);
       const userDoc=await getDoc(doc(db, "users",user.uid));
-      localStorage.setItem("user_data",JSON.stringify(userDoc));
+      localStorage.setItem("user_id", userDoc.data().id);
       return (userDoc.data());
     } catch (error) {
       console.error(error);
@@ -75,13 +68,14 @@ export const logOut=createAsyncThunk(
     try{
     const userstate=getState();
     const user=userstate.auth.user;
+    const userId=localStorage.getItem("user_id");
     const userRef = collection(db, "users");
 
 // Create a query against the collection.
    const userQuery = query(userRef, where("email", "!=",user.email ));
    const userquerySnapshot = await getDocs(userQuery);
    const users= userquerySnapshot.docs.map(userdocument=>({...userdocument.data(),id:userdocument.id}));
-   const userdataRef= await getDoc(doc(db,"users",user.id));
+   const userdataRef= await getDoc(doc(db,"users",userId));
    return users;
     }
     catch(err){
@@ -162,16 +156,31 @@ catch(err) {
     }
   })
 
+  export const getUserProfile=createAsyncThunk("auth/getProfile",async()=>{
+    try {
+      const currentUserId = localStorage.getItem("user_id");
+      if (currentUserId) {
+        const userRef = await getDoc(doc(db, "users", currentUserId));
+        return userRef.data();
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  })
 
 
 const AuthSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser:(state,action)=>{
-      state.user=action.payload;
-      // state.isUserLoggedIn=true;
-    }
+    setUserLogOut: (state) => {     
+      localStorage.removeItem("user_id");
+      state.isUserLoggedIn = false;
+      state.user = {};
+    },
   },
   extraReducers: {
     [signUp.fulfilled]: (state, action) => {
@@ -235,9 +244,18 @@ const AuthSlice = createSlice({
     },
     [getUserProfileData.pending]:(state)=>{
       state.getUserProfileStatus="loading";
-    }
+    },
+    [getUserProfile.fulfilled]: (state, action) => {
+      if (action.payload) {
+        state.isUserLoggedIn = true;
+        state.user = { ...action.payload };
+      } else {
+        state.isUserLoggedIn = false;
+        state.user = {};
+      }
+    },
   },
 });
 export default AuthSlice.reducer;
-export const {setUser} =  AuthSlice.actions;
+export const {setUserLogOut} =  AuthSlice.actions;
 
