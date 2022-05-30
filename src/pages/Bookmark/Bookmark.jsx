@@ -9,8 +9,8 @@ export const Bookmark = () => {
     <div className="bookmark-page-container flex-center flex-direction-column">
       <h2 className="bookmark-heading">Your Bookmarks</h2>
       <div className="bookmark-list flex-center flex-direction-column">
-        {bookmarks.map((post) => {
-          return <UsersPost Post={post} key={post.id} />;
+        {bookmarks.map((bookmark) => {
+          return <UsersPost Post={bookmark.post} key={bookmark.post.id} />;
         })}
       </div>
     </div>

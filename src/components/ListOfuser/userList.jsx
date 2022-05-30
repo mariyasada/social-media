@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getUsers, followUser, unfollowUser } from "../../redux/auth/authslice";
 import "../ListOfuser/userlist.css";
 
 export const UserList = () => {
   const dispatch = useDispatch();
   const { users, user } = useSelector((state) => state.auth);
-  // const isAnyFollower = users.map((user) =>
-  //   user.followers.some((id) => user.id)
-  // );
-
-  // console.log(users, "multipleusers");
   useEffect(() => {
     try {
       if (user) {
@@ -36,15 +32,17 @@ export const UserList = () => {
             key={followeruser.id}
           >
             <div className="image-with-username flex-center">
-              <img
-                src={
-                  followeruser.photoURL
-                    ? followeruser.photoURL
-                    : "./assets/avatar.png"
-                }
-                alt="user-profile"
-                className="avatar avatar-xsm"
-              />
+              <Link to={`/profile/${followeruser.id}`}>
+                <img
+                  src={
+                    followeruser.photoURL
+                      ? followeruser.photoURL
+                      : "./assets/avatar.png"
+                  }
+                  alt="user-profile"
+                  className="avatar avatar-xsm"
+                />
+              </Link>
               <p className="username-from-userlist">{followeruser.username}</p>
             </div>
             <span className="follow-btn-container">

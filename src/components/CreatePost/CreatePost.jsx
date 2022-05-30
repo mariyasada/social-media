@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addPosts, editPost } from "../../redux/post/postSlice";
 import Picker from "emoji-picker-react-2";
+import { Link } from "react-router-dom";
+import { Loader } from "../Loader/Loader";
 
 export const CreatePost = ({
   postData,
@@ -17,30 +19,24 @@ export const CreatePost = ({
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { firstName, lastName, username, photoURL, id } = user;
+  const { editPostStatus } = useSelector((state) => state.post);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setPostData((prevData) => ({ ...prevData, [name]: value }));
   };
   const createPostclickHandler = () => {
-    if (postData === "") {
+    if (postData.content === "") {
       toast("please fill the form field", { icon: "✔" });
     } else if (postData && isEditing) {
       dispatch(editPost(postData));
       setIsEditing(!isEditing);
-      toast("suceessfully post updated", { icon: "✔" });
     } else {
       dispatch(
         addPosts({
           ...postData,
-          user: {
-            id,
-            firstName,
-            lastName,
-            username,
-            photoURL,
-            createdAt: Date.now(),
-          },
+          createdAt: Date.now(),
+          userId: id,
         })
       );
     }
@@ -63,22 +59,24 @@ export const CreatePost = ({
   return (
     <div className="create-post-container flex-center border-round">
       <div className="avatar-image-container">
-        <img
-          className="avatar avatar-xsm"
-          src={user.photoURL ? user.photoURL : "https://picsum.photos/200"}
-          alt="user profile"
-        />
+        <Link to={`/profile/${user.id}`}>
+          <img
+            className="avatar avatar-xsm"
+            src={user.photoURL ? user.photoURL : "https://picsum.photos/200"}
+            alt="user profile"
+          />
+        </Link>
       </div>
       <div className="textarea-with-icon-container flex-center flex-direction-column">
         <textarea
           cols="50"
           className="textarea-of-createPost"
           placeholder="Write something interesting... "
-          required
           name="content"
           id="content"
           value={postData.content}
           onChange={(e) => changeHandler(e)}
+          required
         />
         <div className="icons-and-post-btn-container flex-center">
           <div className="icons-container flex-center">
@@ -116,6 +114,9 @@ export const CreatePost = ({
           <Picker onEmojiClick={onEmojiClick} className="picker-emoji" />
         </div>
       )}
+      <div className="loader homepage">
+        {editPostStatus === "loading" && <Loader />}
+      </div>
     </div>
   );
 };

@@ -33,6 +33,13 @@
   top: 13.9rem;
   cursor: pointer;
 }
+.loader {
+  z-index: 30;
+  background: transparent;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
 @media screen and (max-width: 900px) {
   .login-container-with-image {
     margin-top: 6rem;
@@ -60,5 +67,10 @@
   }
   .confirm-password-badge {
     top: 38.6rem;
+  }
+  .loader {
+    width: fit-content;
+    top: 50%;
+    left: 40%;
   }
 }

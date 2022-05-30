@@ -4,17 +4,17 @@ import { FaEye, FaEyeSlash } from "../../components/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "../signup/signup.css";
 import { guestData, initialLogInData } from "../../constants/auth-Constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../redux/auth/authslice";
 import toast from "react-hot-toast";
+import { Loader } from "../../components";
 
 export const Login = () => {
   const [isShow, setShow] = useState(true);
   const [logInData, setLogInData] = useState(initialLogInData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const dispatch = useDispatch();
+  const { loginstatus } = useSelector((state) => state.auth);
 
   const logInChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -26,6 +26,7 @@ export const Login = () => {
       e.preventDefault();
       await dispatch(logIn(logInData)).unwrap();
       navigate("/home");
+      toast("suceessfully login", { icon: "✔" });
     } catch (err) {
       console.log(err);
       toast("could not complete the request", { icon: "❌" });
@@ -36,6 +37,7 @@ export const Login = () => {
       e.preventDefault();
       await dispatch(logIn(guestData)).unwrap();
       navigate("/home");
+      toast("suceessfully login", { icon: "✔" });
     } catch (err) {
       console.log(err);
       toast("could not complete the request", { icon: "❌" });
@@ -112,6 +114,7 @@ export const Login = () => {
           </div>
         </form>
       </div>
+      <div className="loader">{loginstatus === "loading" && <Loader />}</div>
     </div>
   );
 };

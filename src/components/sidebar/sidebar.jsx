@@ -3,9 +3,11 @@ import { sidebarMenu } from "../../constants/sidebarConstant";
 import { NavLink } from "react-router-dom";
 import "../sidebar/sidebar.css";
 import { useAuth } from "../../contexts";
-import { CgProfile } from "../icons";
+import { CgProfile, FaUserCircle } from "../icons";
+import { useSelector } from "react-redux";
 
 export const Sidebar = () => {
+  const { user } = useSelector((state) => state.auth);
   const getActivestylelink = ({ isActive }) => ({
     background: isActive ? "#b4cece" : "",
   });
@@ -15,7 +17,9 @@ export const Sidebar = () => {
         {sidebarMenu.map(({ Icon, path, name }) => {
           return (
             <NavLink
-              to={`${path}`}
+              to={
+                name === "Profile" ? `${path.concat(`/${user.id}`)}` : `${path}`
+              }
               key={name}
               className="sidebar-item-with-icon flex-center"
               style={getActivestylelink}

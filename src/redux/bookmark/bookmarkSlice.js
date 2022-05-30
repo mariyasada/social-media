@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDoc,collection, addDoc, getDocs, deleteDoc, query,where, updateDoc,doc, arrayUnion } from "firebase/firestore";
 import { app,db } from "../../firebaseconfige";
-import { LikedPost,disLikedPost } from "../post/postSlice";
+import { LikedPost,disLikedPost,deletePost ,editPost} from "../post/postSlice";
 
 const initialState = {
   bookmarks:[],
@@ -14,22 +14,15 @@ const initialState = {
 const collectionRef=collection(db,"bookmarks")
 
 export const addToBookmark =createAsyncThunk("bookmark/addToBookmark",async(post,{getState})=>{
-    console.log(post,"addtobookmark");
     const userState=getState();
   const userData=userState.auth.user;
-  console.log(userData,"bookmark");
     try {
-        const bookmarkRef = await addDoc(collectionRef,post);
-        await updateDoc(bookmarkRef,{bookmarkId:bookmarkRef.id,userId:userData.id});
-        const bookmarkSnapData= await getDoc(bookmarkRef);
-        console.log(bookmarkRef);
-        console.log(bookmarkSnapData);
-        if(bookmarkSnapData.exists()){
-        return bookmarkSnapData.data();
-      } 
-      else{         
-        console.log("could not complete the request");
-      }
+        
+      const bookmarkRef= await addDoc(collectionRef,{postId:post.id,userId:userData.id})
+      await updateDoc(bookmarkRef,{bookmarkId:bookmarkRef.id});
+      const bookmark={post,bookmarkId:bookmarkRef.id};
+     return bookmark;
+
     }
     catch(err){
         console.log("something went wrong",err);
@@ -43,13 +36,16 @@ export const getBookmarks=createAsyncThunk("bookmark/getBookmarks",async(arg,{ge
   try{
     const userstate=getState();
     const user=userstate.auth.user;
-    // const bookmarkQuery=query(collectionRef,where("user.id", "==", user.id)) 
     const bookmarkQuery=query(collectionRef,where("userId", "==", user.id)) 
-    console.log(bookmarkQuery);
     const allBookmarkSnap=await getDocs(bookmarkQuery);
-    const allbookmarks=allBookmarkSnap.docs.map(bookmark=>bookmark.data())
-    console.log(allbookmarks,"all bookmarks");
-    return allbookmarks;
+    let bookmarks=[];
+    for await (const bookmark of allBookmarkSnap.docs){      
+      const bookmarkData=bookmark.data()
+      const postRef= await getDoc(doc(db,"posts",bookmarkData.postId))
+      bookmarks =[...bookmarks,{post:postRef.data(),bookmarkId:bookmark.id}];
+
+    }
+    return bookmarks;
   }
   catch(err){
     console.log(err,"something went wrong");
@@ -57,14 +53,11 @@ export const getBookmarks=createAsyncThunk("bookmark/getBookmarks",async(arg,{ge
   }
 })
 
-export const deletePostFromBookmark= createAsyncThunk("bookmark/deletePostFromBookmark",async({bookmarkId,id})=>{
-    console.log(bookmarkId);
-   
+export const deletePostFromBookmark= createAsyncThunk("bookmark/deletePostFromBookmark",async({bookmarkId,id})=>{   
   try
   {
-    const bookmarkRef=await deleteDoc(doc(db,"bookmarks",bookmarkId));
-    console.log(bookmarkRef);
-    return id;
+    await deleteDoc(doc(db,"bookmarks",bookmarkId));
+    return bookmarkId;
   }
   catch(err){
     console.log(err,"something went wrong");
@@ -88,7 +81,6 @@ const BookmarkSlice = createSlice({
      state.status="could not complete the request"
     },
     [getBookmarks.fulfilled]: (state, action) => {
-        console.log(action.payload);
      state.bookmarks=action.payload; 
      state.getbookmarkStatus="succeed"
     },
@@ -100,7 +92,7 @@ const BookmarkSlice = createSlice({
       state.getbookmarkStatus = "rejected";
     },
     [deletePostFromBookmark.fulfilled]: (state, action) => {
-    state.bookmarks=state.bookmarks.filter((post)=>post.id !==action.payload); 
+    state.bookmarks=state.bookmarks.filter((bookmark)=>bookmark.bookmarkId !==action.payload); 
      state.deletebookmarkStatus="succeed"
     },
     [deletePostFromBookmark.pending]: (state, action) => {
@@ -112,8 +104,8 @@ const BookmarkSlice = createSlice({
     },
     [LikedPost.fulfilled]:(state,action)=>{
       state.bookmarks=state.bookmarks.map((bookmark)=>{
-        if(bookmark.id ===action.payload.PostId){
-          return{...bookmark,likes:bookmark.likes.concat(action.payload.userId)}
+        if(bookmark.post.id ===action.payload.PostId){
+          return{...bookmark,post:{...bookmark.post,likes:bookmark.post.likes.concat(action.payload.userId)}}
         }
         return bookmark;        
       })
@@ -121,11 +113,18 @@ const BookmarkSlice = createSlice({
     },
     [disLikedPost.fulfilled]:(state,action)=>{
       state.bookmarks=state.bookmarks.map((bookmark)=>{
-        if(bookmark.id===action.payload.PostId){
-          return {...bookmark,likes:bookmark.likes.filter((id=>id !==action.payload.userId))}
-        }
+        if(bookmark.post.id===action.payload.PostId){
+          return {...bookmark,post:{...bookmark.post,likes:bookmark.post.likes.filter(id=>id!==action.payload.userId)}}
+          }
         return bookmark;
       })
+    },
+    [deletePost.fulfilled]: (state, action) => {
+     state.bookmarks=state.bookmarks.filter((bookmark)=>bookmark.post.id !==action.payload); 
+    },
+    [editPost.fulfilled]:(state,action)=>{
+      state.bookmarks= state.bookmarks.map((bookmark)=>bookmark.post.id === action.payload.id ?      
+      {...bookmark,post:action.payload}:bookmark); 
     }
   }
 })

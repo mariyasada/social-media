@@ -39,9 +39,11 @@
   text-align: justify;
   width: 100%;
   min-width: 73ch;
+  max-width: 40ch;
 }
 .details {
   font-family: "Nunito", sans-serif;
+  word-wrap: break-word;
 }
 .user-post-icons-container {
   width: 100%;
@@ -65,11 +67,15 @@
   width: 91%;
   border: 1px solid lightslategray;
   padding: 3px;
+  background-color: var(--background-color);
+  cursor: pointer;
+  margin-top: 2px;
 }
 .input-for-comment {
   outline: none;
   border: none;
   width: 100%;
+  background: transparent;
 }
 .comment-rendered-section {
   height: auto;
@@ -85,8 +91,13 @@
 .username-and-comment {
   font-family: "Nunito", sans-serif;
   width: 100%;
+  justify-content: space-between;
   align-items: flex-start;
   background-color: transparent;
+}
+.comment-container {
+  width: fit-content;
+  align-items: flex-start;
 }
 .avatar-container-from-comment {
   align-self: flex-start;
@@ -97,9 +108,8 @@
 }
 .reply-link {
   color: var(--primary-color);
-  text-decoration: underline;
-  margin-top: -2px;
   cursor: pointer;
+  margin-top: 4px;
 }
 .avatar-and-input-container-for-reply {
   width: 83%;

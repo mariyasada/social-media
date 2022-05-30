@@ -1,15 +1,38 @@
 import React, { useState } from "react";
-import { IoSend } from "../icons";
+import { useDispatch, useSelector } from "react-redux";
+import { IoSend, FaTrash, FiSend } from "../icons";
+import { addCommentsToPost, deleteComment } from "../../redux/post/postSlice";
+import toast from "react-hot-toast";
 
-export const CommentSection = () => {
+export const CommentSection = ({ PostId, Post }) => {
+  const { comments } = useSelector((state) => state.post);
+
+  const commetsToShow = comments.filter((comment) => comment.PostId === PostId);
   const [isVisible, setVisible] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+  const [comment, setComment] = useState({ description: "" });
+  const dispatch = useDispatch();
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setComment((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const commentHandler = () => {
+    if (comment === "") {
+      toast("cannot add blank comment", { icon: "✔" });
+    } else {
+      dispatch(addCommentsToPost({ PostId, comment }));
+    }
+    setComment({ description: " " });
+  };
   return (
     <div className="comment-section-container flex-center flex-direction-column">
       <div className="avatar-and-input-container flex-center">
         <div className="avatar-container">
           <img
             className="avatar avatar-xsm"
-            src="https://iqra-ui.netlify.app/images/blank.png"
+            src={user.photoURL ? user.photoURL : "https://picsum.photos/200"}
             alt="user profile"
           />
         </div>
@@ -18,77 +41,51 @@ export const CommentSection = () => {
             type="text"
             placeholder="write a comment..."
             className="input-for-comment"
+            name="description"
+            value={comment.description}
+            onChange={(e) => onChangeHandler(e)}
           />
-          <IoSend className="action-icons" title="send" />
+          <IoSend
+            className="action-icons"
+            title="send"
+            onClick={commentHandler}
+          />
         </div>
       </div>
-      <div className="comment-rendered-section flex-center flex-direction-column">
-        <div className="username-avatar-container flex-center">
-          <div className="avatar-container-from-comment">
-            <img
-              className="avatar avatar-xsm"
-              src="https://iqra-ui.netlify.app/images/blank.png"
-              alt="user profile"
-            />
-          </div>
-          <div className="username-and-comment flex-center flex-direction-column">
-            <p className="username">Mariyasada</p>
-            <p className="comment-of-user">hello how are you</p>
-            <p className="reply-link" onClick={() => setVisible(!isVisible)}>
-              Reply
-            </p>
-            {/*  reply comments  */}
+
+      {commetsToShow.map((postComment) => {
+        return (
+          <div className="comment-rendered-section flex-center flex-direction-column">
             <div className="username-avatar-container flex-center">
               <div className="avatar-container-from-comment">
                 <img
                   className="avatar avatar-xsm"
-                  src="https://iqra-ui.netlify.app/images/blank.png"
+                  src={
+                    postComment.userData.photoURL
+                      ? postComment.userData.photoURL
+                      : "https://picsum.photos/200"
+                  }
                   alt="user profile"
                 />
               </div>
-              <div className="username-and-comment flex-center flex-direction-column">
-                <p className="username">Mariyasada</p>
-                <p className="comment-of-user">hello how are you</p>
+              <div className="username-and-comment flex-center ">
+                <div className="comment-container flex-center flex-direction-column">
+                  <p className="username">{postComment.userData.username}</p>
+                  <p className="comment-of-user">
+                    {postComment.comment.description}
+                  </p>
+                </div>
+                {user.username === postComment.userData.username && (
+                  <FaTrash
+                    className="reply-link"
+                    onClick={() => dispatch(deleteComment(postComment.id))}
+                  />
+                )}
               </div>
             </div>
-            {/*  reply comments over here */}
-            {isVisible && (
-              <div className="avatar-and-input-container-for-reply flex-center">
-                <div className="avatar-container">
-                  <img
-                    className="avatar avatar-xsm"
-                    src="https://iqra-ui.netlify.app/images/blank.png"
-                    alt="user profile"
-                  />
-                </div>
-                <div className="input-and-sendbtn-container flex-center border-round">
-                  <input
-                    type="text"
-                    placeholder="Reply to Mariya..."
-                    className="input-for-comment"
-                  />
-                  <IoSend className="action-icons" title="send" />
-                </div>
-              </div>
-            )}
           </div>
-        </div>
-        {/* another comment */}
-        <div className="username-avatar-container flex-center">
-          <div className="avatar-container-from-comment">
-            <img
-              className="avatar avatar-xsm"
-              src="https://iqra-ui.netlify.app/images/blank.png"
-              alt="user profile"
-            />
-          </div>
-          <div className="username-and-comment flex-center flex-direction-column">
-            <p className="username">Mariyasada</p>
-            <p className="comment-of-user">hello how are you</p>
-            <p className="reply-link">Reply</p>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 };

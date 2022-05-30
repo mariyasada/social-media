@@ -8,6 +8,7 @@
   gap: 12px;
   margin: 2rem 0 0 6rem;
   width: 100%;
+  align-items: flex-start;
 }
 .list-of-users-container {
   align-self: flex-start;
@@ -24,11 +25,11 @@
   }
   .list-of-users-container {
     align-self: center;
-    width: 88vw;
-    margin-left: 8%;
+    width: 90vw;
+    margin-left: 12%;
   }
   .userallpost-container {
-    width: 80%;
-    margin-left: 6%;
+    width: 100%;
+    margin-left: 4%;
   }
 }

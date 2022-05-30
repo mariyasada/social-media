@@ -5,12 +5,14 @@ import {useAuth} from "../contexts";
 export const RequireAuth = ({children}) => {
     
    const {isUserLoggedIn,user}=useSelector(state=>state.auth);
+   console.log(isUserLoggedIn);
     const location=useLocation();
-    // console.log(user);
-    // if(user)
+    const token=localStorage.getItem("token");
+    // if(token)
     // {
-
-    return (isUserLoggedIn ?children:<Navigate to="/login" state={{from:location}} replace/>)
+    return (
+        isUserLoggedIn ? children: <Navigate to="/login" state={{from:location}} replace/>
+        )
     // }
     // else{
     //     console.log("could not complete the request");

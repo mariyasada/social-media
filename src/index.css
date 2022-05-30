@@ -52,7 +52,19 @@ li {
   height: 2.3rem;
   width: 2.3rem;
 }
-
+.loader {
+  z-index: 30;
+  background: transparent;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.loader.homepage {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 /* colors*/
 :root {
   --color-black: #233138;
@@ -75,4 +87,11 @@ li {
   --guif-stream: #8bb9b9;
   --guif-stream-light: #b4cece;
   --plantation: #284e57;
+}
+@media screen and (max-width: 900px) {
+  .loader {
+    width: fit-content;
+    top: 50%;
+    left: 40%;
+  }
 }

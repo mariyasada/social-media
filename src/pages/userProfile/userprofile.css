@@ -37,7 +37,7 @@
 }
 .followers-container {
   background-color: var(--white-color);
-  width: 20vw;
+  width: 25vw;
   gap: 3px;
   padding: 8px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

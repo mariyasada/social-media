@@ -1,7 +1,11 @@
 import React from "react";
+import { useReducer } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UserList, UsersPost } from "../../components";
+import { FilterBar, UserList, UsersPost } from "../../components";
 import "../Explore/Explore.css";
+import "../userHome/Home.css";
+import { filterPostReducer } from "./filterPostReducer";
+import { getFilteredPost } from "../../utils/utils";
 
 export const Explore = () => {
   const { Posts } = useSelector((state) => state.post);
@@ -9,13 +13,23 @@ export const Explore = () => {
   const Listofposts = Posts.filter(
     (item) => item.user.username !== user.username
   );
-  console.log(Listofposts, "list hai bhai");
+
+  const [state, dispatch] = useReducer(filterPostReducer, {
+    sortByDate: "Recent",
+  });
+
+  const sortestPost = getFilteredPost(Listofposts, state);
   return (
     <div className="explore-page-container flex-center">
-      <div className="userallpost-container flex-center flex-direction-column">
-        {Listofposts.map((userpost) => {
-          return <UsersPost Post={userpost} key={userpost.id} />;
-        })}
+      <div className="home-feed-container flex-center flex-direction-column">
+        <FilterBar dispatch={dispatch} state={state} />
+        <div className="userallpost-container flex-center flex-direction-column">
+          {sortestPost
+            .map((userpost) => {
+              return <UsersPost Post={userpost} key={userpost.id} />;
+            })
+            .reverse()}
+        </div>
       </div>
       <div className="list-of-users-container">
         <UserList />
