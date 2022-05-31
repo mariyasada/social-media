@@ -53,39 +53,45 @@ export const CommentSection = ({ PostId, Post }) => {
         </div>
       </div>
 
-      {commetsToShow.map((postComment) => {
-        return (
-          <div className="comment-rendered-section flex-center flex-direction-column">
-            <div className="username-avatar-container flex-center">
-              <div className="avatar-container-from-comment">
-                <img
-                  className="avatar avatar-xsm"
-                  src={
-                    postComment.userData.photoURL
-                      ? postComment.userData.photoURL
-                      : "https://picsum.photos/200"
-                  }
-                  alt="user profile"
-                />
-              </div>
-              <div className="username-and-comment flex-center ">
-                <div className="comment-container flex-center flex-direction-column">
-                  <p className="username">{postComment.userData.username}</p>
-                  <p className="comment-of-user">
-                    {postComment.comment.description}
-                  </p>
-                </div>
-                {user.username === postComment.userData.username && (
-                  <FaTrash
-                    className="reply-link"
-                    onClick={() => dispatch(deleteComment(postComment.id))}
+      {commetsToShow.length === 0 ? (
+        <div className="comment-section flex-center">
+          <p className="color-teal">Be a first one to post a comment</p>
+        </div>
+      ) : (
+        commetsToShow.map((postComment) => {
+          return (
+            <div className="comment-rendered-section flex-center flex-direction-column">
+              <div className="username-avatar-container flex-center">
+                <div className="avatar-container-from-comment">
+                  <img
+                    className="avatar avatar-xsm"
+                    src={
+                      postComment.userData.photoURL
+                        ? postComment.userData.photoURL
+                        : "https://picsum.photos/200"
+                    }
+                    alt="user profile"
                   />
-                )}
+                </div>
+                <div className="username-and-comment flex-center ">
+                  <div className="comment-container flex-center flex-direction-column">
+                    <p className="username">{postComment.userData.username}</p>
+                    <p className="comment-of-user">
+                      {postComment.comment.description}
+                    </p>
+                  </div>
+                  {user.username === postComment.userData.username && (
+                    <FaTrash
+                      className="reply-link"
+                      onClick={() => dispatch(deleteComment(postComment.id))}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import "../Humburger/humburger.css";
 import { sidebarMenu } from "../../constants/sidebarConstant";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../../redux/auth/authslice";
+import { setUserLogOut } from "../../redux/auth/authslice";
 import toast from "react-hot-toast";
 
 export const Humburger = () => {
@@ -19,7 +19,7 @@ export const Humburger = () => {
   const signoutHnadler = async (e) => {
     try {
       e.preventDefault();
-      await dispatch(logOut()).unwrap();
+      await dispatch(setUserLogOut());
       navigate("/");
       toast("sucessfully logout", { icon: "✔" });
     } catch (err) {

@@ -87,6 +87,13 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
               <p>{Post.content}</p>
             </div>
           </div>
+          {Post.likes.length === 0 ? (
+            ""
+          ) : (
+            <div className="userspost-likeCount flex-center">
+              <span> {Post?.likes?.length} Likes</span>
+            </div>
+          )}
           <div className="user-post-icons-container flex-center">
             <span className="background-of-icon flex-center">
               {isliked ? (

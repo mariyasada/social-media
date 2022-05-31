@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getUsers, followUser, unfollowUser } from "../../redux/auth/authslice";
 import "../ListOfuser/userlist.css";
+import { BsSearch } from "../icons";
+import { getsortedUsers } from "../../utils/utils";
 
-export const UserList = () => {
+export const UserList = ({ filterDispatch, state }) => {
   const dispatch = useDispatch();
   const { users, user } = useSelector((state) => state.auth);
+  const { pathname } = useLocation();
   useEffect(() => {
     try {
       if (user) {
@@ -19,52 +22,118 @@ export const UserList = () => {
     }
   }, [dispatch, user]);
 
+  const listOfuser = pathname === "/explore" && getsortedUsers(users, state);
+  console.log(listOfuser);
+
   return (
     <div className="userlist-container flex-center flex-direction-column border-round">
+      {pathname === "/explore" && (
+        <div className="search-input-container flex-center">
+          <BsSearch className="search-icon" />
+          <input
+            type="text"
+            className="input-search"
+            placeholder="Search"
+            onChange={(e) =>
+              filterDispatch({
+                type: "SEARCH_BY_QUERY",
+                payload: e.target.value,
+              })
+            }
+          />
+        </div>
+      )}
+
       <div className="title-and-option-container flex-center">
         <p className="who-to-follow">Who to Follow?</p>
         <p className="show-more">Show More</p>
       </div>
-      {users.map((followeruser) => {
-        return (
-          <div
-            className="user-with-avatar-container flex-center"
-            key={followeruser.id}
-          >
-            <div className="image-with-username flex-center">
-              <Link to={`/profile/${followeruser.id}`}>
-                <img
-                  src={
-                    followeruser.photoURL
-                      ? followeruser.photoURL
-                      : "./assets/avatar.png"
-                  }
-                  alt="user-profile"
-                  className="avatar avatar-xsm"
-                />
-              </Link>
-              <p className="username-from-userlist">{followeruser.username}</p>
-            </div>
-            <span className="follow-btn-container">
-              {user.following?.some((id) => id === followeruser.id) ? (
-                <button
-                  className="btn btn-follow border-round"
-                  onClick={() => dispatch(unfollowUser(followeruser.id))}
-                >
-                  Unfollow
-                </button>
-              ) : (
-                <button
-                  className="btn btn-follow border-round"
-                  onClick={() => dispatch(followUser(followeruser.id))}
-                >
-                  Follow
-                </button>
-              )}
-            </span>
-          </div>
-        );
-      })}
+
+      {pathname === "/explore"
+        ? listOfuser.map((followeruser) => {
+            return (
+              <div
+                className="user-with-avatar-container flex-center"
+                key={followeruser.id}
+              >
+                <div className="image-with-username flex-center">
+                  <Link to={`/profile/${followeruser.id}`}>
+                    <img
+                      src={
+                        followeruser.photoURL
+                          ? followeruser.photoURL
+                          : "./assets/avatar.png"
+                      }
+                      alt="user-profile"
+                      className="avatar avatar-xsm"
+                    />
+                  </Link>
+                  <p className="username-from-userlist">
+                    {followeruser.username}
+                  </p>
+                </div>
+                <span className="follow-btn-container">
+                  {user.following?.some((id) => id === followeruser.id) ? (
+                    <button
+                      className="btn btn-follow border-round"
+                      onClick={() => dispatch(unfollowUser(followeruser.id))}
+                    >
+                      Unfollow
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-follow border-round"
+                      onClick={() => dispatch(followUser(followeruser.id))}
+                    >
+                      Follow
+                    </button>
+                  )}
+                </span>
+              </div>
+            );
+          })
+        : users.map((followeruser) => {
+            return (
+              <div
+                className="user-with-avatar-container flex-center"
+                key={followeruser.id}
+              >
+                <div className="image-with-username flex-center">
+                  <Link to={`/profile/${followeruser.id}`}>
+                    <img
+                      src={
+                        followeruser.photoURL
+                          ? followeruser.photoURL
+                          : "./assets/avatar.png"
+                      }
+                      alt="user-profile"
+                      className="avatar avatar-xsm"
+                    />
+                  </Link>
+                  <p className="username-from-userlist">
+                    {followeruser.username}
+                  </p>
+                </div>
+                <span className="follow-btn-container">
+                  {user.following?.some((id) => id === followeruser.id) ? (
+                    <button
+                      className="btn btn-follow border-round"
+                      onClick={() => dispatch(unfollowUser(followeruser.id))}
+                    >
+                      Unfollow
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-follow border-round"
+                      onClick={() => dispatch(followUser(followeruser.id))}
+                    >
+                      Follow
+                    </button>
+                  )}
+                </span>
+              </div>
+            );
+          })}
     </div>
   );
 };

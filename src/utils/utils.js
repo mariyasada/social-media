@@ -17,3 +17,12 @@ export const getFilteredPost=(postList,state)=>{
     }
     else return postList;
 }
+
+export const getsortedUsers=(users,state)=>{
+  if(state.searchByQuery)
+  {
+    return users.filter((user)=>user.username.toLowerCase().includes(state.searchByQuery.toLowerCase()))
+    }
+    else return users;
+  
+}

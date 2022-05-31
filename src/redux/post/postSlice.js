@@ -42,8 +42,6 @@ export const getPosts=createAsyncThunk("post/getPosts",async()=>{
       const userRef= await getDoc(doc(db,"users",postData.userId))
       posts =[...posts,{user:userRef.data(), ...postData}];
       
-    
-
     }
     return posts;
   }
@@ -73,7 +71,7 @@ export const deletePost=createAsyncThunk("post/deletePost",async({postId,bookmar
 export const editPost=createAsyncThunk("post/editPost",async(postData)=>{
   const postDataRef=doc(db,"posts",postData.id);
   try {
-     const updatedPost= await updateDoc(postDataRef,postData);
+      await updateDoc(postDataRef,postData);
      const docRef=await getDoc(postDataRef);
      const editedData={...docRef.data(),id:postDataRef.id}
      return editedData;
