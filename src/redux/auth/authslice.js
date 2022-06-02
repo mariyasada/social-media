@@ -181,6 +181,10 @@ const AuthSlice = createSlice({
       state.isUserLoggedIn = false;
       state.user = {};
     },
+    setLoader:(state)=>{
+      state.updateDataStatus="loading";
+      state.getUserProfileStatus="loading";
+    }
   },
   extraReducers: {
     [signUp.fulfilled]: (state, action) => {
@@ -257,5 +261,5 @@ const AuthSlice = createSlice({
   },
 });
 export default AuthSlice.reducer;
-export const {setUserLogOut} =  AuthSlice.actions;
+export const {setUserLogOut,setLoader} =  AuthSlice.actions;
 

@@ -28,8 +28,9 @@ export const CreatePost = ({
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  // const { firstName, lastName, username, photoURL, id } = user;
-  const { editPostStatus, status } = useSelector((state) => state.post);
+  const { editPostStatus, status, deletePostStatus } = useSelector(
+    (state) => state.post
+  );
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -191,7 +192,6 @@ export const CreatePost = ({
             )}
             <button
               className="btn btn-of-post border-round"
-              // onClick={createPostclickHandler}
               onClick={(e) => {
                 e.preventDefault();
                 uploadFile(e);
@@ -210,6 +210,8 @@ export const CreatePost = ({
       )}
       <div className="loader homepage">
         {editPostStatus === "loading" && <Loader />}
+        {status === "loading" && <Loader />}
+        {deletePostStatus === "loading" && <Loader />}
       </div>
     </div>
   );

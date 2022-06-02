@@ -23,7 +23,6 @@ export const UserList = ({ filterDispatch, state }) => {
   }, [dispatch, user]);
 
   const listOfuser = pathname === "/explore" && getsortedUsers(users, state);
-  console.log(listOfuser);
 
   return (
     <div className="userlist-container flex-center flex-direction-column border-round">

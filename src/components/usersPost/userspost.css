@@ -36,6 +36,7 @@
 }
 .users-post-details-container {
   height: auto;
+  min-height: auto;
   text-align: justify;
   width: 100%;
   min-width: 73ch;
@@ -44,6 +45,7 @@
 .details {
   font-family: "Nunito", sans-serif;
   word-wrap: break-word;
+  height: auto;
 }
 .user-post-icons-container {
   width: 100%;
@@ -143,11 +145,11 @@
   justify-content: flex-start;
 }
 .image-conatiner {
-  height: 10rem;
+  height: 16rem;
   width: 100%;
 }
 .image-of-post {
-  height: 9rem;
-  width: 100%;
+  height: 100%;
+  width: 80%;
   object-fit: contain;
 }
