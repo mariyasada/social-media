@@ -23,7 +23,7 @@ export const addPosts = createAsyncThunk(
       updateDoc(postRef,{id:postRef.id})
       const postSnapData=await getDoc(postRef);
       const post=postSnapData.data();
-      const userSnap=await getDoc(doc(db,"users",post.userId))     
+      const userSnap=await getDoc(doc(db,"users",post.userId))    
         return{...post,id:postSnapData.id,user:userSnap.data()};
      
     } catch (error) {
@@ -71,10 +71,11 @@ export const deletePost=createAsyncThunk("post/deletePost",async({postId,bookmar
 export const editPost=createAsyncThunk("post/editPost",async(postData)=>{
   const postDataRef=doc(db,"posts",postData.id);
   try {
+     
       await updateDoc(postDataRef,postData);
      const docRef=await getDoc(postDataRef);
      const editedData={...docRef.data(),id:postDataRef.id}
-     return editedData;
+    return postData;
   }
   catch(err){
     console.log(err,"something went wrong");
@@ -168,7 +169,11 @@ export const deleteComment=createAsyncThunk("post/deleteComment",async(commentId
 const PostSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+    setLoading:(state,action)=>{
+      state.status="loading";
+    }
+  },
   extraReducers: {
     [addPosts.fulfilled]: (state, action) => {
      state.Posts=state.Posts.concat(action.payload); 
@@ -204,7 +209,7 @@ const PostSlice = createSlice({
       state.deletePostStatus = "rejected";
     },
     [editPost.fulfilled]: (state, action) => {
-     state.Posts=state.Posts.map((post)=>post.id===action.payload.id ?action.payload:post); 
+     state.Posts=state.Posts.map((post)=>post.id===action.payload.id ?{...post,...action.payload}:post); 
      state.editPostStatus="succeed"
     },
     [editPost.pending]: (state, action) => {
@@ -241,3 +246,4 @@ const PostSlice = createSlice({
   },
 });
 export default PostSlice.reducer;
+export const {setLoading}=PostSlice.actions;

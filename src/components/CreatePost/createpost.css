@@ -1,6 +1,6 @@
 .create-post-container {
   width: fit-content;
-  height: 17rem;
+  height: auto;
   background-color: var(--white-color);
   align-items: flex-start;
   padding: 1rem;
@@ -29,6 +29,11 @@
   font-size: 1.6rem;
   justify-content: space-between;
 }
+.icons {
+  width: 100%;
+  justify-content: space-between;
+  cursor: pointer;
+}
 .label-for-icons {
   width: 100%;
   justify-content: space-between;
@@ -47,9 +52,18 @@
 .btn-container {
   gap: 5px;
 }
+.container-image-icon {
+  background-color: red;
+}
 
 /* emoji picker style*/
 .emojicontainer {
   position: absolute;
   top: 10rem;
+}
+.post-image {
+  width: 12rem;
+  height: 12rem;
+  object-fit: contain;
+  margin-top: 10px;
 }
