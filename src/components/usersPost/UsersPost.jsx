@@ -25,7 +25,14 @@ import {
 } from "../../redux/bookmark/bookmarkSlice";
 import toast from "react-hot-toast";
 
-export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
+export const UsersPost = ({
+  Post,
+  setPostData,
+  setIsEditing,
+  isEditing,
+  setImgUrl,
+  imgUrl,
+}) => {
   const { user } = useSelector((state) => state.auth);
   const { deletePostStatus, likedPostStatus, dislikedPostStatus } = useSelector(
     (state) => state.post
@@ -39,7 +46,12 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
 
   const seteditData = (Post) => {
     setIsEditing(true);
-    setPostData(Post);
+    if (Post.imgUrl === undefined) {
+      setPostData(Post);
+    } else {
+      setPostData(Post);
+      setImgUrl(Post.imgUrl);
+    }
     toast("go to the text editor", { icon: "✔" });
   };
   const bookmarkId = bookmarks.find(
@@ -59,7 +71,7 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
                 ? Post.user.photoURL
                 : "https://picsum.photos/200"
             }
-            alt="user profile"
+            alt={Post.user.username}
           />
         </div>
         <div className="username-and-more-option flex-center flex-direction-column">
@@ -70,9 +82,14 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
                 <FaTrash
                   className="more-option-icon"
                   title="Delete"
-                  onClick={() =>
-                    dispatch(deletePost({ postId: Post.id, bookmarkId }))
-                  }
+                  onClick={() => {
+                    if (isEditing) {
+                      toast("you can't delete post while editing", {
+                        icon: "✔",
+                      });
+                    }
+                    dispatch(deletePost({ postId: Post.id, bookmarkId }));
+                  }}
                 />
               ) : (
                 <BsThreeDots
@@ -85,6 +102,14 @@ export const UsersPost = ({ Post, setPostData, setIsEditing }) => {
           <div className="users-post-details-container">
             <div className="details">
               <p>{Post.content}</p>
+              {Post.imgUrl === undefined ? null : (
+                <div className="image-conatiner">
+                  <img
+                    className="image-of-post"
+                    src={Post.imgUrl ? Post.imgUrl : null}
+                  />
+                </div>
+              )}
             </div>
           </div>
           {Post.likes.length === 0 ? (

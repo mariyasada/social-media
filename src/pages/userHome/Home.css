@@ -72,6 +72,13 @@
     font-size: 1.1rem;
   }
   .emojicontainer {
-    top: 20rem;
+    top: 18rem;
+  }
+  .post-image {
+    width: 7rem;
+    height: 7rem;
+  }
+  .image-of-post {
+    height: 6rem;
   }
 }

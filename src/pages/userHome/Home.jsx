@@ -13,6 +13,7 @@ import "../userHome/Home.css";
 
 export const Home = () => {
   const [postData, setPostData] = useState({ content: "" });
+  const [imgUrl, setImgUrl] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const { Posts, status, getPostStatus } = useSelector((state) => state.post);
   const dispatch = useDispatch();
@@ -41,6 +42,8 @@ export const Home = () => {
           setPostData={setPostData}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
+          imgUrl={imgUrl}
+          setImgUrl={setImgUrl}
         />
         <h1 className="heading-of-post">Latest Posts</h1>
         <div className="userpost-container flex-center flex-direction-column">
@@ -55,6 +58,9 @@ export const Home = () => {
                     Post={post}
                     setPostData={setPostData}
                     setIsEditing={setIsEditing}
+                    isEditing={isEditing}
+                    setImgUrl={setImgUrl}
+                    imgUrl={imgUrl}
                   />
                 );
               })

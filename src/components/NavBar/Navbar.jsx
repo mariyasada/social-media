@@ -5,6 +5,7 @@ import { Humburger } from "../Humburger/Humburger";
 import { BsSearch, MdMenu, GiCancel } from "../icons";
 import "../NavBar/Navbar.css";
 import { setUserLogOut } from "../../redux/auth/authslice";
+import toast from "react-hot-toast";
 
 export const Navbar = () => {
   const { isUserLoggedIn } = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ export const Navbar = () => {
       e.preventDefault();
       await dispatch(setUserLogOut());
       navigate("/");
+      toast("Successfully logout", { icon: "✔" });
     } catch (err) {
       console.log(err);
       toast("could not complete the request", { icon: "❌" });
