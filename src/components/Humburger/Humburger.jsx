@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuth } from "../../contexts";
 import { FaUserAlt, FiLogOut, FaUserCircle } from "../icons";
 import "../Humburger/humburger.css";
 import { sidebarMenu } from "../../constants/sidebarConstant";

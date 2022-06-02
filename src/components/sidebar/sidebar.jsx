@@ -2,8 +2,6 @@ import React from "react";
 import { sidebarMenu } from "../../constants/sidebarConstant";
 import { NavLink } from "react-router-dom";
 import "../sidebar/sidebar.css";
-import { useAuth } from "../../contexts";
-import { CgProfile, FaUserCircle } from "../icons";
 import { useSelector } from "react-redux";
 
 export const Sidebar = () => {

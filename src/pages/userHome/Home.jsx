@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CreatePost,
-  FilterBar,
-  Loader,
-  UserList,
-  UsersPost,
-} from "../../components";
+import { CreatePost, Loader, UserList, UsersPost } from "../../components";
 import postSlice, { FetchComments, getPosts } from "../../redux/post/postSlice";
 import { getBookmarks } from "../../redux/bookmark/bookmarkSlice";
 import "../userHome/Home.css";

@@ -2,7 +2,7 @@ import { async } from "@firebase/util";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { doc, getFirestore,query, setDoc,getDoc,collection, addDoc, getDocs, deleteDoc,updateDoc,onSnapshot,arrayUnion,arrayRemove, where, limit } from "firebase/firestore";
 import { app,db } from "../../firebaseconfige";
-import { updateUserData } from "../auth/authslice";
+
 
 const initialState = {
   Posts:[],
