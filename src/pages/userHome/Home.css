@@ -79,6 +79,11 @@
     height: 7rem;
   }
   .image-of-post {
-    height: 6rem;
+    height: 10rem;
+    width: 100%;
+  }
+  .image-conatiner {
+    height: 10rem;
+    width: 80%;
   }
 }

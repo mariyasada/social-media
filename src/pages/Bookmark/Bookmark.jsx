@@ -25,9 +25,15 @@ export const Bookmark = () => {
     <div className="bookmark-page-container flex-center flex-direction-column">
       <h2 className="bookmark-heading">Your Bookmarks</h2>
       <div className="bookmark-list flex-center flex-direction-column">
-        {bookmarks.map((bookmark) => {
-          return <UsersPost Post={bookmark.post} key={bookmark.post.id} />;
-        })}
+        {bookmarks.length === 0 ? (
+          <p className="user-for-msg">
+            You have not added any post to bookmark
+          </p>
+        ) : (
+          bookmarks.map((bookmark) => {
+            return <UsersPost Post={bookmark.post} key={bookmark.post.id} />;
+          })
+        )}
       </div>
       <div className="loader homepage">
         {getbookmarkStatus === "loading" && <Loader />}

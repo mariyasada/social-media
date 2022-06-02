@@ -2,6 +2,7 @@ import { async } from "@firebase/util";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { doc, getFirestore,query, setDoc,getDoc,collection, addDoc, getDocs, deleteDoc,updateDoc,onSnapshot,arrayUnion,arrayRemove, where, limit } from "firebase/firestore";
 import { app,db } from "../../firebaseconfige";
+import { updateUserData } from "../auth/authslice";
 
 const initialState = {
   Posts:[],
@@ -69,10 +70,12 @@ export const deletePost=createAsyncThunk("post/deletePost",async({postId,bookmar
 })
 
 export const editPost=createAsyncThunk("post/editPost",async(postData)=>{
+  const newPostData={...postData}
+  delete newPostData.user;
   const postDataRef=doc(db,"posts",postData.id);
   try {
      
-      await updateDoc(postDataRef,postData);
+      await updateDoc(postDataRef,newPostData);
      const docRef=await getDoc(postDataRef);
      const editedData={...docRef.data(),id:postDataRef.id}
     return postData;
@@ -242,6 +245,7 @@ const PostSlice = createSlice({
     [deleteComment.fulfilled]: (state, action) => {
      state.comments=state.comments.filter((comment)=>comment.id !==action.payload); 
     },
+    
     
   },
 });

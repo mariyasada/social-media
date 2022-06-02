@@ -9,10 +9,13 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../../firebaseconfige";
-import { updateUserData } from "../../redux/auth/authslice";
+import { updateUserData, setLoader } from "../../redux/auth/authslice";
 
 export const Modal = ({ setShow, user }) => {
   const dispatch = useDispatch();
+  const { updateDataStatus, getUserProfileStatus } = useSelector(
+    (state) => state.auth
+  );
   const [editUserData, setUserData] = useState({
     bio: user?.bio || "",
     portfolioLink: user?.portfolioLink || "",
@@ -58,7 +61,7 @@ export const Modal = ({ setShow, user }) => {
 
     // Upload the file and metadata
     const uploadTask = uploadBytesResumable(imageRef, file);
-
+    setLoader();
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -133,11 +136,16 @@ export const Modal = ({ setShow, user }) => {
             className="btn btn-secondary border-round"
             onClick={(e) => {
               uploadFile(e), setShow(false);
+              setLoader();
             }}
           >
             Save
           </button>
         </div>
+      </div>
+      <div className="loader homepage">
+        {updateDataStatus === "loading" ||
+          (getUserProfileStatus === "loading" && <Loader />)}
       </div>
     </div>
   );

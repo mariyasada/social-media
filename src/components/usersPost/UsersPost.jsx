@@ -185,11 +185,11 @@ export const UsersPost = ({
       </div>
       {isShow && <CommentSection PostId={Post.id} Post={Post} />}
       <div className="loader homepage">
-        {deletePostStatus === "loading" ||
-          likedPostStatus === "loading" ||
-          dislikedPostStatus === "loading" ||
-          deletebookmarkStatus === "loading" ||
-          (status === "loading" && <Loader />)}
+        {deletePostStatus === "loading" && <Loader />}
+        {likedPostStatus === "loading" && <Loader />}
+        {dislikedPostStatus === "loading" && <Loader />}
+        {deletebookmarkStatus === "loading" && <Loader />}
+        {status === "loading" && <Loader />}
       </div>
     </div>
   );

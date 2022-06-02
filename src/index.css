@@ -67,6 +67,10 @@ li {
 .color-teal {
   color: blue;
 }
+.user-for-msg {
+  font-size: 2rem;
+  font-family: "Nunito", sans-serif;
+}
 /* colors*/
 :root {
   --color-black: #233138;
