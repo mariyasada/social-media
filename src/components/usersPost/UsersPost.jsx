@@ -34,9 +34,12 @@ export const UsersPost = ({
   imgUrl,
 }) => {
   const { user } = useSelector((state) => state.auth);
-  const { deletePostStatus, likedPostStatus, dislikedPostStatus } = useSelector(
-    (state) => state.post
-  );
+  const {
+    deletePostStatus,
+    likedPostStatus,
+    dislikedPostStatus,
+    addCommentStatus,
+  } = useSelector((state) => state.post);
   const { bookmarks, status, deletebookmarkStatus } = useSelector(
     (state) => state.bookmark
   );
@@ -102,7 +105,7 @@ export const UsersPost = ({
           <div className="users-post-details-container">
             <div className="details">
               <p>{Post.content}</p>
-              {Post.imgUrl === undefined ? null : (
+              {Post.imgUrl === undefined || Post.imgUrl === "" ? null : (
                 <div className="image-conatiner">
                   <img
                     className="image-of-post"
@@ -190,6 +193,7 @@ export const UsersPost = ({
         {dislikedPostStatus === "loading" && <Loader />}
         {deletebookmarkStatus === "loading" && <Loader />}
         {status === "loading" && <Loader />}
+        {addCommentStatus === "loading" && <Loader />}
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import { async } from "@firebase/util";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { doc, getFirestore,query, setDoc,getDoc,collection, addDoc, getDocs, deleteDoc,updateDoc,onSnapshot,arrayUnion,arrayRemove, where, limit } from "firebase/firestore";
 import { app,db } from "../../firebaseconfige";
-
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import { updateUserData } from "../auth/authslice";
 
 const initialState = {
   Posts:[],
@@ -15,6 +16,7 @@ const initialState = {
   editPostStatus:"idle",
   likedPostStatus:"idle",
   dislikedPostStatus:"idle",
+  addCommentStatus:"idle",
 };
 export const addPosts = createAsyncThunk(
   "post/addPosts",
@@ -70,6 +72,7 @@ export const deletePost=createAsyncThunk("post/deletePost",async({postId,bookmar
 })
 
 export const editPost=createAsyncThunk("post/editPost",async(postData)=>{
+  console.log(postData,"data");
   const newPostData={...postData}
   delete newPostData.user;
   const postDataRef=doc(db,"posts",postData.id);
@@ -86,6 +89,7 @@ export const editPost=createAsyncThunk("post/editPost",async(postData)=>{
   }
 
 })
+
 export const LikedPost=createAsyncThunk("post/LikedPost",async(PostId,{getState})=>{
   const userState=getState();
   const userData=userState.auth.user;
@@ -126,8 +130,6 @@ catch(err){
 
 
 export const addCommentsToPost=createAsyncThunk("post/addCommentsToPost",async({PostId,comment},{getState})=>{
-
-  console.log(PostId,comment,"comment section")
  const userState=getState();
   const userData=userState.auth.user;
   try{
@@ -238,14 +240,26 @@ const PostSlice = createSlice({
     },
     [addCommentsToPost.fulfilled]:(state,action)=>{
     state.comments=state.comments.concat(action.payload);
+    state.addCommentStatus="succeed";
     },
+     [addCommentsToPost.pending]:(state,action)=>{
+      state.addCommentStatus="pending";
+     },
     [FetchComments.fulfilled]: (state, action) => {
      state.comments=action.payload; 
     },
     [deleteComment.fulfilled]: (state, action) => {
      state.comments=state.comments.filter((comment)=>comment.id !==action.payload); 
     },
-    
+    // [updateUserData.fulfilled]:(state,action)=>{
+    //   state.comments=state.comments.map(comment=>{
+    //     if(comment.userData.id===action.payload.id)
+    //     {
+    //       return {...comment,userData:{...comment.userData,...action.payload}}
+    //     }
+    //     return comment
+    //   })
+    // }
     
   },
 });

@@ -8,7 +8,7 @@ import {
   unfollowUser,
   setLoader,
 } from "../../redux/auth/authslice";
-import { getPosts } from "../../redux/post/postSlice";
+import { FetchComments, getPosts } from "../../redux/post/postSlice";
 import "../userProfile/userprofile.css";
 
 export const UserProfile = () => {
@@ -24,12 +24,12 @@ export const UserProfile = () => {
     (post) => post.user.username === user.username
   );
 
-  console.log(loggedInUserPost, "loggedin");
   const userPosts = Posts.filter((post) => post.user.id === currentUserId);
 
   useEffect(async () => {
     dispatch(getUserProfileData(currentUserId));
     dispatch(getPosts());
+    dispatch(FetchComments());
   }, [dispatch, currentUserId]);
 
   const currentUserProfile = currentUserId === user.id ? user : userProfileData;

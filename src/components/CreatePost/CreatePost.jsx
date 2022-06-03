@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GrImage, AiOutlineFileGif, BsEmojiSmile } from "../icons";
+import { GrImage, AiOutlineFileGif, BsEmojiSmile, FaTrash } from "../icons";
 import "../CreatePost/createpost.css";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,8 +49,19 @@ export const CreatePost = ({
     if (postData.content === "") {
       toast("please fill the form field", { icon: "✔" });
     } else if (postData && isEditing) {
-      dispatch(editPost(postData));
-      setIsEditing(!isEditing);
+      if (imgUrl === "" || imgUrl === undefined) {
+        dispatch(
+          editPost({
+            id: postData.id,
+            content: postData.content,
+            imgUrl: imgUrl,
+          })
+        );
+        setIsEditing(!isEditing);
+      } else {
+        dispatch(editPost(postData));
+        setIsEditing(!isEditing);
+      }
     } else {
       dispatch(
         addPosts({
@@ -159,8 +170,16 @@ export const CreatePost = ({
           required
         />
         {imgUrl != "" && (
-          <div className="post-image">
+          <div className="post-image flex-center">
             <img className="responsive-image" alt="post-image" src={imgUrl} />
+            {isEditing && (
+              <p>
+                <FaTrash
+                  className="icon-in-post flex-center"
+                  onClick={() => setImgUrl("")}
+                />
+              </p>
+            )}
           </div>
         )}
         <div className="icons-and-post-btn-container flex-center">

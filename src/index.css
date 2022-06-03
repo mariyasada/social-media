@@ -65,7 +65,8 @@ li {
   transform: translate(-50%, -50%);
 }
 .color-teal {
-  color: blue;
+  color: var(--color-black);
+  font-family: "Nunito" sans-serif;
 }
 .user-for-msg {
   font-size: 2rem;

@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoSend, FaTrash, FiSend } from "../icons";
 import { addCommentsToPost, deleteComment } from "../../redux/post/postSlice";
 import toast from "react-hot-toast";
+import { Loader } from "../Loader/Loader";
 
 export const CommentSection = ({ PostId, Post }) => {
-  const { comments } = useSelector((state) => state.post);
+  const { comments, addCommentStatus } = useSelector((state) => state.post);
 
   const commetsToShow = comments.filter((comment) => comment.PostId === PostId);
   const [isVisible, setVisible] = useState(false);
@@ -23,6 +24,7 @@ export const CommentSection = ({ PostId, Post }) => {
       toast("cannot add blank comment", { icon: "✔" });
     } else {
       dispatch(addCommentsToPost({ PostId, comment }));
+      toast("comment added successfully", { icon: "✔" });
     }
     setComment({ description: " " });
   };
@@ -60,7 +62,10 @@ export const CommentSection = ({ PostId, Post }) => {
       ) : (
         commetsToShow.map((postComment) => {
           return (
-            <div className="comment-rendered-section flex-center flex-direction-column">
+            <div
+              className="comment-rendered-section flex-center flex-direction-column"
+              key={postComment.id}
+            >
               <div className="username-avatar-container flex-center">
                 <div className="avatar-container-from-comment">
                   <img
@@ -83,7 +88,10 @@ export const CommentSection = ({ PostId, Post }) => {
                   {user.username === postComment.userData.username && (
                     <FaTrash
                       className="reply-link"
-                      onClick={() => dispatch(deleteComment(postComment.id))}
+                      onClick={() => {
+                        dispatch(deleteComment(postComment.id)),
+                          toast("successfully comment deleted", { icon: "✔" });
+                      }}
                     />
                   )}
                 </div>
@@ -92,6 +100,9 @@ export const CommentSection = ({ PostId, Post }) => {
           );
         })
       )}
+      <div className="loader homepage">
+        {addCommentStatus === "loading" && <Loader />}
+      </div>
     </div>
   );
 };
