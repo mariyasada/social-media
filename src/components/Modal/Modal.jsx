@@ -144,8 +144,8 @@ export const Modal = ({ setShow, user }) => {
         </div>
       </div>
       <div className="loader homepage">
-        {updateDataStatus === "loading" ||
-          (getUserProfileStatus === "loading" && <Loader />)}
+        {updateDataStatus === "loading" && <Loader />}
+        {getUserProfileStatus === "loading" && <Loader />}
       </div>
     </div>
   );

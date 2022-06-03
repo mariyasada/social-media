@@ -57,7 +57,7 @@
     width: 93%;
   }
   .icons-container {
-    width: 35%;
+    width: 100%;
   }
   .input-and-sendbtn-container {
     width: 87%;
@@ -75,7 +75,7 @@
     top: 18rem;
   }
   .post-image {
-    width: 7rem;
+    width: 100%;
     height: 7rem;
   }
   .image-of-post {
@@ -85,5 +85,15 @@
   .image-conatiner {
     height: 10rem;
     width: 80%;
+  }
+  .icon-in-post {
+    right: 8rem;
+    top: 12.4rem;
+  }
+  .username-avatar-container {
+    width: 85%;
+  }
+  .avatar-container-from-comment {
+    margin: 1px 0 0 2px;
   }
 }
