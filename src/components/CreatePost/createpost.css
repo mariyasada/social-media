@@ -40,7 +40,7 @@
   cursor: pointer;
 }
 .btn-of-post {
-  min-width: 7rem;
+  min-width: 6rem;
   padding: 7px;
   font-size: 1.2rem;
   background: linear-gradient(var(--primary-color-dark), var(--primary-color));

@@ -23,10 +23,15 @@ export const Login = () => {
 
   const logInHandler = async (e) => {
     try {
-      e.preventDefault();
-      await dispatch(logIn(logInData)).unwrap();
-      navigate("/home");
-      toast("suceessfully login", { icon: "✔" });
+      if (logInData.email && logInData.password === "") {
+        toast("please enter the data in both fields", { icon: "✔" });
+        navigate("/login");
+      } else {
+        e.preventDefault();
+        await dispatch(logIn(logInData)).unwrap();
+        navigate("/home");
+        toast("suceessfully login", { icon: "✔" });
+      }
     } catch (err) {
       console.log(err);
       toast("could not complete the request", { icon: "❌" });

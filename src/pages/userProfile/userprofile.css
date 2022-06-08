@@ -34,6 +34,7 @@
   font-weight: bold;
   cursor: pointer;
   font-family: "Lucida Sans", Geneva, Verdana, sans-serif;
+  color: var(--primary-color);
 }
 .followers-container {
   background-color: var(--white-color);

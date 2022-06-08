@@ -1,8 +1,7 @@
 .explore-page-container {
   height: 100%;
-  margin: 7rem 0 0 10rem;
+  margin: 7rem 0 0 9rem;
   justify-content: flex-start;
-  gap: 3rem;
 }
 .userallpost-container {
   gap: 12px;
@@ -13,8 +12,8 @@
 .list-of-users-container {
   align-self: flex-start;
   padding: 1rem;
-  margin: 2rem 2rem 0 0;
-  width: 70%;
+  margin: 3rem 2rem 0 0;
+  width: 100%;
 }
 @media screen and (max-width: 900px) {
   .explore-page-container {

@@ -15,7 +15,7 @@ export const PageNotFound = () => {
         <p className="message-for-user">
           Aha!!! You see ! You can be wrong ! or it could be us you should
           probably &nbsp;
-          <Link to="/">
+          <Link to="/home">
             <span className="link-to-homepage">Go to HomePage</span>
           </Link>
         </p>

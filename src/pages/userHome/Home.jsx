@@ -27,6 +27,11 @@ export const Home = () => {
     (post) => user.following?.includes(post.userId) || post.userId === user.id
   );
 
+  const filteredPostOfFollowedUser = postByFollowedUser.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
+  console.log(filteredPostOfFollowedUser);
+
   return (
     <div className="home-page-container flex-center">
       {/* create post and latest post conatiner */}

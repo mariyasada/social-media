@@ -23,6 +23,7 @@ export const Humburger = () => {
       toast("sucessfully logout", { icon: "✔" });
     } catch (err) {
       console.log(err);
+      toast("could not complete the request", { icon: "❌" });
     }
   };
   return (
@@ -49,9 +50,11 @@ export const Humburger = () => {
           <NavLink
             to="/"
             className="hamburger-menu-item flex-center flex-direction-column"
-            onClick={(e) => signoutHnadler(e)}
           >
-            <li className="hamburger-item flex-center">
+            <li
+              className="hamburger-item flex-center"
+              onClick={(e) => signoutHnadler(e)}
+            >
               <FiLogOut />
               Logout
             </li>

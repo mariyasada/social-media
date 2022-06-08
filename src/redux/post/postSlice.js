@@ -251,15 +251,15 @@ const PostSlice = createSlice({
     [deleteComment.fulfilled]: (state, action) => {
      state.comments=state.comments.filter((comment)=>comment.id !==action.payload); 
     },
-    // [updateUserData.fulfilled]:(state,action)=>{
-    //   state.comments=state.comments.map(comment=>{
-    //     if(comment.userData.id===action.payload.id)
-    //     {
-    //       return {...comment,userData:{...comment.userData,...action.payload}}
-    //     }
-    //     return comment
-    //   })
-    // }
+    [updateUserData.fulfilled]:(state,action)=>{
+      state.comments=state.comments.map(comment=>{
+        if(comment.userData.id===action.payload.id)
+        {
+          return {...comment,userData:{...comment.userData,...action.payload}}
+        }
+        return comment
+      })
+    }
     
   },
 });
