@@ -23,7 +23,7 @@ export const Login = () => {
 
   const logInHandler = async (e) => {
     try {
-      if (logInData.email && logInData.password === "") {
+      if (logInData.email === "" || logInData.password === "") {
         toast("please enter the data in both fields", { icon: "✔" });
         navigate("/login");
       } else {
