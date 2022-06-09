@@ -23,8 +23,14 @@ export const UserProfile = () => {
   const loggedInUserPost = Posts.filter(
     (post) => post.user.username === user.username
   );
+  const sortLoggedInUserPost = loggedInUserPost.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
 
   const userPosts = Posts.filter((post) => post.user.id === currentUserId);
+  const sortUserPosts = userPosts.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
 
   useEffect(async () => {
     dispatch(getUserProfileData(currentUserId));
@@ -67,7 +73,12 @@ export const UserProfile = () => {
         <div className="details-container flex-center flex-direction-column">
           <p className="details">{currentUserProfile?.bio}</p>
           <span className="portfolio-url">
-            {currentUserProfile?.portfolioLink}
+            <a
+              href={`https://${currentUserProfile?.portfolioLink}`}
+              target="_blank"
+            >
+              {currentUserProfile?.portfolioLink}
+            </a>
           </span>
         </div>
         <div className="followers-container flex-center border-round">
@@ -91,10 +102,10 @@ export const UserProfile = () => {
       </div>
       <div className="user-post-container flex-center flex-direction-column">
         {currentUserId === user.id
-          ? loggedInUserPost.map((post) => {
+          ? sortLoggedInUserPost.map((post) => {
               return <UsersPost Post={post} key={post.id} />;
             })
-          : userPosts.map((post) => {
+          : sortUserPosts.map((post) => {
               return <UsersPost Post={post} key={post.id} />;
             })}
       </div>

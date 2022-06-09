@@ -1,6 +1,6 @@
 .filter-item-container {
   background-color: var(--white-color);
-  width: 88%;
+  width: 45vw;
   margin-top: 1rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

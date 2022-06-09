@@ -2,6 +2,7 @@ import { Navigate, useLocation,useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../redux/auth/authslice";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export const RequireAuth = ({children}) => { 
    const {isUserLoggedIn}=useSelector(state=>state.auth);

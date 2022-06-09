@@ -5,6 +5,7 @@ import { initialSignUpData } from "../../constants/auth-Constants";
 import "../signup/signup.css";
 import { signUp } from "../../redux/auth/authslice";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 export const Signup = () => {
   const [isShow, setShow] = useState(true);
@@ -31,6 +32,7 @@ export const Signup = () => {
         await dispatch(signUp(signupData)).unwrap();
         setSignupData(initialSignUpData);
         navigate("/home");
+        toast("successfully signed up", { icon: "✔" });
       } catch (err) {
         console.log(err);
       }

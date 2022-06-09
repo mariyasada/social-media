@@ -145,9 +145,11 @@ export const UsersPost = ({
                 title="Comment"
               />
             </span>
+            {/* TO DO FOR FUTURE */}
             <span className="background-of-icon flex-center">
               <FiShare2 className="action-icons" title="Share" />
             </span>
+            {/* WILL IMPLEMENT SHARE FUNCTIONALITY */}
             {user.username === Post.user.username && pathname === "/home" && (
               <span className="background-of-icon flex-center">
                 <Link to="/home">
