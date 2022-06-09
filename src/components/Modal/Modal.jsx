@@ -81,6 +81,7 @@ export const Modal = ({ setShow, user }) => {
             portfolioLink: editUserData.portfolioLink,
           };
           dispatch(updateUserData(newUser));
+          setLoader();
         });
       }
     );
