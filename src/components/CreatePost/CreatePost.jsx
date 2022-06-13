@@ -215,7 +215,7 @@ export const CreatePost = ({
                 uploadFile(e);
               }}
             >
-              {isEditing ? "Update Post" : "Post"}
+              {isEditing ? "Update" : "Post"}
             </button>
           </span>
         </div>

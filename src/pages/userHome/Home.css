@@ -57,7 +57,7 @@
     width: 93%;
   }
   .icons-container {
-    width: 100%;
+    width: 40%;
   }
   .input-and-sendbtn-container {
     width: 87%;
@@ -68,9 +68,10 @@
   }
   .btn-of-post {
     max-width: 3rem;
-    padding: 5px;
+    padding: 7px;
     font-size: 1.1rem;
   }
+
   .emojicontainer {
     top: 18rem;
   }
