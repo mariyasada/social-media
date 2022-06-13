@@ -193,7 +193,6 @@ export const CreatePost = ({
               />
               <GrImage className="icons" />
             </label>
-            <AiOutlineFileGif className="icons" />
             <BsEmojiSmile
               className="icons"
               onClick={() => setShowEmoji((showEmoji) => !showEmoji)}

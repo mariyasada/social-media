@@ -72,7 +72,6 @@ export const deletePost=createAsyncThunk("post/deletePost",async({postId,bookmar
 })
 
 export const editPost=createAsyncThunk("post/editPost",async(postData)=>{
-  console.log(postData,"data");
   const newPostData={...postData}
   delete newPostData.user;
   const postDataRef=doc(db,"posts",postData.id);

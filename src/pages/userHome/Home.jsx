@@ -30,7 +30,6 @@ export const Home = () => {
   const filteredPostOfFollowedUser = postByFollowedUser.sort(
     (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
   );
-  console.log(filteredPostOfFollowedUser);
 
   return (
     <div className="home-page-container flex-center">

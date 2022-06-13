@@ -81,7 +81,7 @@ export const UsersPost = ({
           <div className="username-and-icon flex-center">
             <p className="username-from-posts">{Post.user.username}</p>
             <span className="more-options">
-              {user.username === Post.user.username ? (
+              {user.username === Post.user.username && (
                 <FaTrash
                   className="more-option-icon"
                   title="Delete"
@@ -93,11 +93,6 @@ export const UsersPost = ({
                     }
                     dispatch(deletePost({ postId: Post.id, bookmarkId }));
                   }}
-                />
-              ) : (
-                <BsThreeDots
-                  className="more-option-icon"
-                  title="more options"
                 />
               )}
             </span>
@@ -145,11 +140,6 @@ export const UsersPost = ({
                 title="Comment"
               />
             </span>
-            {/* TO DO FOR FUTURE */}
-            <span className="background-of-icon flex-center">
-              <FiShare2 className="action-icons" title="Share" />
-            </span>
-            {/* WILL IMPLEMENT SHARE FUNCTIONALITY */}
             {user.username === Post.user.username && pathname === "/home" && (
               <span className="background-of-icon flex-center">
                 <Link to="/home">
