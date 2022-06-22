@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDoc,collection, addDoc, getDocs, deleteDoc, query,where, updateDoc,doc, arrayUnion } from "firebase/firestore";
+import toast from "react-hot-toast";
 import { app,db } from "../../firebaseconfige";
 import { LikedPost,disLikedPost,deletePost ,editPost} from "../post/postSlice";
+
 
 const initialState = {
   bookmarks:[],
@@ -79,7 +81,8 @@ const BookmarkSlice = createSlice({
   extraReducers: {
      [addToBookmark.fulfilled]: (state, action) => {
      state.bookmarks=state.bookmarks.concat(action.payload);
-     state.status="succeed"
+     state.status="succeed";
+     toast("successfully added to bookmarks",{icon:"✔"});
     },
     [addToBookmark.pending]: (state, action) => {
      state.status="loading"
@@ -100,7 +103,8 @@ const BookmarkSlice = createSlice({
     },
     [deletePostFromBookmark.fulfilled]: (state, action) => {
     state.bookmarks=state.bookmarks.filter((bookmark)=>bookmark.bookmarkId !==action.payload); 
-     state.deletebookmarkStatus="succeed"
+     state.deletebookmarkStatus="succeed";
+     toast("successfully removed from bookmarks",{icon:"✔"});
     },
     [deletePostFromBookmark.pending]: (state, action) => {
       state.deletebookmarkStatus = "loading";
@@ -116,6 +120,7 @@ const BookmarkSlice = createSlice({
         }
         return bookmark;        
       })
+      toast("successfully liked",{icon:"✔"});
       
     },
     [disLikedPost.fulfilled]:(state,action)=>{
@@ -125,6 +130,7 @@ const BookmarkSlice = createSlice({
           }
         return bookmark;
       })
+      toast("disliked a post",{icon:"✔"});
     },
     [deletePost.fulfilled]: (state, action) => {
      state.bookmarks=state.bookmarks.filter((bookmark)=>bookmark.post.id !==action.payload); 

@@ -41,6 +41,8 @@ export const UserProfile = () => {
   const currentUserProfile = currentUserId === user.id ? user : userProfileData;
   const isFollowing = userProfileData?.followers?.includes(user.id);
 
+  let ishrefIncluded = currentUserProfile?.portfolioLink?.includes("https://");
+
   return (
     <div className="profile-of-user-container flex-center flex-direction-column">
       <div className="username-with-avatar-container flex-center flex-direction-column border-round">
@@ -74,7 +76,11 @@ export const UserProfile = () => {
           <p className="details">{currentUserProfile?.bio}</p>
           <span className="portfolio-url">
             <a
-              href={`https://${currentUserProfile?.portfolioLink}`}
+              href={
+                ishrefIncluded
+                  ? `${currentUserProfile?.portfolioLink}`
+                  : `https://${currentUserProfile?.portfolioLink}`
+              }
               target="_blank"
             >
               {currentUserProfile?.portfolioLink}

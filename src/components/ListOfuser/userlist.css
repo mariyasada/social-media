@@ -14,7 +14,7 @@
   color: var(--primary-color-dark);
 }
 .who-to-follow {
-  color: var(--secondary-dark);
+  color: var(--primary-color-dark);
 }
 .user-with-avatar-container {
   margin-left: 3px;

@@ -12,7 +12,7 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   const signoutHandler = async (e) => {
     try {
@@ -29,16 +29,21 @@ export const Navbar = () => {
   return (
     <nav className="header-container flex-center">
       <div className="menu-icon-and-logo-conatiner flex-center">
-        <div className="humburgermenu-icon">
-          {isOpen ? (
-            <GiCancel
-              className="menu-icon"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-          ) : (
-            <MdMenu className="menu-icon" onClick={() => setIsOpen(!isOpen)} />
-          )}
-        </div>
+        {pathname !== "/login" && pathname !== "/signup" && (
+          <div className="humburgermenu-icon">
+            {isOpen ? (
+              <GiCancel
+                className="menu-icon"
+                onClick={() => setIsOpen(!isOpen)}
+              />
+            ) : (
+              <MdMenu
+                className="menu-icon"
+                onClick={() => setIsOpen(!isOpen)}
+              />
+            )}
+          </div>
+        )}
         <div className="logo-container" style={{ height: "100%" }}>
           <Link to="/">
             <img

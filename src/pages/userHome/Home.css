@@ -96,4 +96,7 @@
   .avatar-container-from-comment {
     margin: 1px 0 0 2px;
   }
+  div .toast-display {
+    font-size: 1.2rem;
+  }
 }

@@ -24,7 +24,7 @@ export const CommentSection = ({ PostId, Post }) => {
       toast("cannot add blank comment", { icon: "✔" });
     } else {
       dispatch(addCommentsToPost({ PostId, comment }));
-      toast("comment added successfully", { icon: "✔" });
+      toast("successfully comment added", { icon: "✔" });
     }
     setComment({ description: " " });
   };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../login/login.css";
 import { FaEye, FaEyeSlash } from "../../components/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../signup/signup.css";
 import { guestData, initialLogInData } from "../../constants/auth-Constants";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +34,7 @@ export const Login = () => {
       }
     } catch (err) {
       console.log(err);
-      toast("could not complete the request", { icon: "❌" });
+      Navigate("/login");
     }
   };
   const guestLoginHandler = async (e) => {
