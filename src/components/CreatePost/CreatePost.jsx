@@ -229,7 +229,6 @@ export const CreatePost = ({
       <div className="loader homepage">
         {editPostStatus === "loading" && <Loader />}
         {status === "loading" && <Loader />}
-        {deletePostStatus === "loading" && <Loader />}
       </div>
     </div>
   );

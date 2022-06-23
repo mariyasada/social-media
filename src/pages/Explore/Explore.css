@@ -32,3 +32,14 @@
     margin-left: 4%;
   }
 }
+@media screen and (max-width: 1250px) {
+  .explore-page-container,
+  .home-page-container {
+    flex-wrap: wrap;
+  }
+  .list-of-users-container,
+  .user-list-container {
+    max-width: 55vw;
+    margin-left: 7%;
+  }
+}

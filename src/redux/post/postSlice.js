@@ -4,6 +4,7 @@ import { doc, getFirestore,query, setDoc,getDoc,collection, addDoc, getDocs, del
 import { app,db } from "../../firebaseconfige";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { updateUserData } from "../auth/authslice";
+import toast from "react-hot-toast";
 
 const initialState = {
   Posts:[],
@@ -182,6 +183,7 @@ const PostSlice = createSlice({
     [addPosts.fulfilled]: (state, action) => {
      state.Posts=state.Posts.concat(action.payload); 
      state.status="succeed"
+      toast("successfully post added",{icon:"✔"});
     },
     [addPosts.pending]: (state, action) => {
       state.status = "loading";
@@ -203,7 +205,8 @@ const PostSlice = createSlice({
     },
     [deletePost.fulfilled]: (state, action) => {
      state.Posts=state.Posts.filter((post)=>post.id !==action.payload); 
-     state.deletePostStatus="succeed"
+     state.deletePostStatus="succeed";
+     toast("successfully post deleted",{icon:"✔"});
     },
     [deletePost.pending]: (state, action) => {
       state.deletePostStatus = "loading";
@@ -214,7 +217,8 @@ const PostSlice = createSlice({
     },
     [editPost.fulfilled]: (state, action) => {
      state.Posts=state.Posts.map((post)=>post.id===action.payload.id ?{...post,...action.payload}:post); 
-     state.editPostStatus="succeed"
+     state.editPostStatus="succeed";
+      toast("successfully post updated",{icon:"✔"});
     },
     [editPost.pending]: (state, action) => {
       state.editPostStatus = "loading";
@@ -225,14 +229,14 @@ const PostSlice = createSlice({
     },
     [LikedPost.fulfilled]: (state, action) => {
      state.Posts=state.Posts.map((post)=>post.id===action.payload.PostId ?({...post,likes:post.likes.concat(action.payload.userId)}):post); 
-     state.likedPostStatus="succeed"
+     state.likedPostStatus="succeed";
     },
     [LikedPost.pending]:(state,action)=>{
       state.likedPostStatus="loading"
     },
     [disLikedPost.fulfilled]: (state, action) => {
      state.Posts=state.Posts.map((post)=>post.id === action.payload.PostId ?({...post,likes:post.likes.filter(id=>id !==action.payload.userId)}):post); 
-    state.dislikedPostStatus="succeed"
+    state.dislikedPostStatus="succeed";
     },
     [disLikedPost.pending]:(state,action)=>{
        state.dislikedPostStatus="loading"

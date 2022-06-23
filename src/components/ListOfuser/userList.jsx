@@ -44,8 +44,7 @@ export const UserList = ({ filterDispatch, state }) => {
       )}
 
       <div className="title-and-option-container flex-center">
-        <p className="who-to-follow">Who to Follow?</p>
-        <p className="show-more">Show More</p>
+        <p className="who-to-follow">Suggestions for you</p>
       </div>
 
       {pathname === "/explore"

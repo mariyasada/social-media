@@ -180,7 +180,6 @@ export const UsersPost = ({
       </div>
       {isShow && <CommentSection PostId={Post.id} Post={Post} />}
       <div className="loader homepage">
-        {deletePostStatus === "loading" && <Loader />}
         {likedPostStatus === "loading" && <Loader />}
         {dislikedPostStatus === "loading" && <Loader />}
         {deletebookmarkStatus === "loading" && <Loader />}

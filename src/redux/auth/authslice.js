@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,setPersistence ,browserLocalPersistence} from "firebase/auth";
 import { doc, getFirestore, setDoc,getDoc,collection, query, where,getDocs, arrayUnion,updateDoc,arrayRemove  } from "firebase/firestore";
 import toast from "react-hot-toast";
+import { Navigate } from "react-router-dom";
 import { app,db } from "../../firebaseconfige";
 
 
@@ -46,6 +47,8 @@ export const logIn=createAsyncThunk(
       localStorage.setItem("user_id", userDoc.data().id);
       return (userDoc.data());
     } catch (error) {
+      toast("email and password are incorrect",{icon:"❌"});
+      Navigate("/login");
       console.error(error);
     }
   }
@@ -190,7 +193,7 @@ const AuthSlice = createSlice({
     [signUp.fulfilled]: (state, action) => {
      state.user=action.payload;
      state.isUserLoggedIn=true;
-     state.signupstatus="succeed"
+     state.signupstatus="succeed";
     },
     [signUp.pending]: (state, action) => {
       state.signupstatus = "loading";
@@ -229,15 +232,17 @@ const AuthSlice = createSlice({
     [followUser.fulfilled]:(state,action)=>{
       state.user.following.push(action.payload.followuserId);
       state.users=state.users.map((user)=>user.id===action.payload.followuserId?({...user,followers:[user.followers,action.payload.userId]}):user);
-      
+      toast("followed a user",{icon:"✔"});
     },
     [unfollowUser.fulfilled]:(state,action)=>{
       state.user={...state.user,following:state.user.following.filter(id=> id !== action.payload.followuserId)};
       state.users=state.users.map((user)=>user.id===action.payload.followuserId?({...user,followers:user.followers.filter(id=>id !==action.payload.userId)}):user);
+    toast("unfollowed a user",{icon:"✔"});
     },
     [updateUserData.fulfilled]:(state,action)=>{
       state.user=action.payload;
       state.updateDataStatus="succeed";
+      toast("successfully user profile updated",{icon:"✔"});
     },
     [updateUserData.pending]:(state,action)=>{
       state.updateDataStatus="loading"
