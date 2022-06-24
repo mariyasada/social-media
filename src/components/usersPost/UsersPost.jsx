@@ -179,13 +179,6 @@ export const UsersPost = ({
         <hr />
       </div>
       {isShow && <CommentSection PostId={Post.id} Post={Post} />}
-      <div className="loader homepage">
-        {likedPostStatus === "loading" && <Loader />}
-        {dislikedPostStatus === "loading" && <Loader />}
-        {deletebookmarkStatus === "loading" && <Loader />}
-        {status === "loading" && <Loader />}
-        {addCommentStatus === "loading" && <Loader />}
-      </div>
     </div>
   );
 };

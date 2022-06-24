@@ -22,24 +22,34 @@ export const Signup = () => {
     setSignupData((prevData) => ({ ...prevData, [name]: value }));
   };
   const passwordMathcingHandler = async (e, pwd1, pwd2) => {
-    if (pwd1.length < 6) {
-      e.preventDefault();
-      seterrMessage("password must be 7 character long ");
-    } else if (pwd1 === pwd2) {
-      e.preventDefault();
-      seterrMessage(" ");
-      try {
-        await dispatch(signUp(signupData)).unwrap();
-        setSignupData(initialSignUpData);
-        navigate("/home");
-        toast("successfully signed up", { icon: "✔" });
-      } catch (err) {
-        console.log(err);
-      }
+    if (
+      signupData.firstName === "" ||
+      signupData.lastName === "" ||
+      signupData.email === "" ||
+      signupData.password === "" ||
+      signupData.username === ""
+    ) {
+      toast("fill the data in all filelds", { icon: "✔" });
     } else {
-      e.preventDefault();
-      seterrMessage("password and confirmpassord doesn't match");
-      navigate("/signup");
+      if (pwd1.length < 6) {
+        e.preventDefault();
+        seterrMessage("password must be 7 character long ");
+      } else if (pwd1 === pwd2) {
+        e.preventDefault();
+        seterrMessage(" ");
+        try {
+          await dispatch(signUp(signupData)).unwrap();
+          setSignupData(initialSignUpData);
+          navigate("/home");
+          toast("successfully signed up", { icon: "✔" });
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        e.preventDefault();
+        seterrMessage("password and confirmpassord doesn't match");
+        navigate("/signup");
+      }
     }
   };
   return (

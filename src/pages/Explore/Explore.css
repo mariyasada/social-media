@@ -39,7 +39,7 @@
   }
   .list-of-users-container,
   .user-list-container {
-    max-width: 55vw;
-    margin-left: 7%;
+    margin-left: 11%;
+    max-width: 93vw;
   }
 }

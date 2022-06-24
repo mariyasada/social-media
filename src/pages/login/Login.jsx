@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../login/login.css";
 import { FaEye, FaEyeSlash } from "../../components/icons";
 import { Link, Navigate, useNavigate } from "react-router-dom";
