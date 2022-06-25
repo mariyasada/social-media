@@ -39,9 +39,11 @@
 }
 .password-badge {
   top: 30rem;
+  cursor: pointer;
 }
 .confirm-password-badge {
   top: 35.3rem;
+  cursor: pointer;
 }
 .btn.login-btn {
   background-color: var(--primary-color);

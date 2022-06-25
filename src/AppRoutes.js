@@ -4,10 +4,12 @@ import { Bookmark, Explore, Home, LandingPage, Login, Signup,PageNotFound, UserP
 import { useLocation } from "react-router-dom";
 import { RequireAuth } from "./Router/RequireAuth";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export const AppRoutes = () => {
   const {pathname}=useLocation();
-  const {isUserLoggedIn}=useSelector(state=>state.auth)
+  const {isUserLoggedIn}=useSelector(state=>state.auth);
   
   return (
     <div>
@@ -16,8 +18,8 @@ export const AppRoutes = () => {
       <Routes>
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/signup" element={<Signup/>}/>
-          {/* {!isUserLoggedIn &&<Route path="/login" element={<Login/>}/>} */}
-          <Route path="/login" element={<Login/>}/>
+          {!isUserLoggedIn && <Route path="/login" element={<Login/>}/>}
+          {/* <Route path="/login" element={<Login/>}/> */}
           <Route path="/home" element={<RequireAuth children={<Home/>}/>}/>
           <Route path="/explore" element={<RequireAuth children={<Explore/>}/>}/>
           <Route path="/bookmark" element={<RequireAuth children={<Bookmark/>}></RequireAuth>}/>

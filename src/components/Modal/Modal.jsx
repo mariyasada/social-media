@@ -10,6 +10,7 @@ import {
 } from "firebase/storage";
 import { app } from "../../firebaseconfige";
 import { updateUserData, setLoader } from "../../redux/auth/authslice";
+import toast from "react-hot-toast";
 
 export const Modal = ({ setShow, user }) => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ export const Modal = ({ setShow, user }) => {
 
   const [photoURL, setPhotoURL] = useState(
     user?.photoURL || "https://picsum.photos/200"
+  );
+  const regexForUrl = new RegExp(
+    "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?"
   );
 
   const onChangeHandler = (e) => {
@@ -136,8 +140,11 @@ export const Modal = ({ setShow, user }) => {
           <button
             className="btn btn-secondary border-round"
             onClick={(e) => {
-              uploadFile(e), setShow(false);
-              setLoader();
+              if (regexForUrl.test(editUserData.portfolioLink)) {
+                uploadFile(e), setShow(false);
+              } else {
+                toast("please enter correct website link", { icon: "✔" });
+              }
             }}
           >
             Save
