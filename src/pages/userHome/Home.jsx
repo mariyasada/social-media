@@ -70,7 +70,8 @@ export const Home = () => {
         <UserList />
       </div>
       <div className="loader homepage">
-        {status === "loading" || (getPostStatus === "loading" && <Loader />)}
+        {status === "loading" && <Loader />}
+        {getPostStatus === "loading" && <Loader />}
       </div>
     </div>
   );
